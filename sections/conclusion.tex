@@ -1,0 +1,9 @@
+\section{Conclusion}
+
+GEMM-based convolution remains a popular approach due to the widespread availability and heavy optimization of BLAS libraries, despite the computational and memory overhead of the commonly used Im2col transformation.
+This work introduces the \algname algorithm, which removes the need for Im2col by enabling GEMM calls to access convolution inputs directly.
+\algname improves upon prior GEMM-based methods by requiring no data copies, relying on unmodified GEMM kernels, and supporting a wide range of convolution configurations.
+As demonstrated in the evaluation, \algname achieves significant speedups over prior work and state-of-the-art PyTorch implementations.
+When integrated into PyTorch, \algname achieves up to a 1.47$\times$ speedup in end-to-end model inference, being particularly effective in image segmentation models that utilize dilated convolution.
+This work highlights the potential to leverage existing high-performance GEMM kernels in an unconventional manner: by exploiting non-contiguous matrix inputs via its \texttt{ldx} parameters.
+Future work includes adapting the algorithm to target GPU execution.

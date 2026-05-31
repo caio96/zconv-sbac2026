@@ -1,0 +1,82 @@
+% Toggle: set to true for blind review submission, false for camera-ready
+\newif\ifreview
+\reviewfalse
+
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{booktabs}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+
+\usepackage[numbers,compress]{natbib}
+
+\usepackage{hyperref}
+
+\usepackage[capitalize,noabbrev]{cleveref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\usepackage[textsize=tiny]{todonotes}
+
+\usepackage{includes/packages}
+\usepackage{includes/comments}
+\usepackage{includes/styles}
+\usepackage{includes/terms}
+
+\begin{document}
+
+\title{Zero-Copy GEMM-Based Fast Convolution}
+
+\ifreview
+  \author{}
+\else
+  \author{
+    \IEEEauthorblockN{Caio Salvador Rohwedder}
+    \IEEEauthorblockA{\textit{AMD}\\Calgary, Canada\\Caio.Rohwedder@amd.com}
+    \and
+    \IEEEauthorblockN{Jo\~ao P. L. De Carvalho}
+    \IEEEauthorblockA{\textit{AMD}\\Calgary, Canada\\Joao.Carvalho@amd.com}
+    \and
+    \IEEEauthorblockN{Jos\'e Nelson Amaral}
+    \IEEEauthorblockA{\textit{University of Alberta}\\Edmonton, Canada\\jamaral@ualberta.ca}
+  }
+\fi
+
+\maketitle
+
+\input{sections/abstract}
+
+\begin{IEEEkeywords}
+Convolution, Matrix Multiplication, Im2col, BLAS
+\end{IEEEkeywords}
+
+\input{sections/introduction}
+\input{sections/background}
+\input{sections/main-section}
+\input{sections/evaluation}
+\input{sections/related-works}
+\input{sections/conclusion}
+
+\bibliographystyle{IEEEtranN}
+\bibliography{references}
+
+\appendix
+\input{sections/appendix}
+
+\end{document}

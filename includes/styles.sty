@@ -1,0 +1,69 @@
+% \algnewcommand{\IfThenElse}[3]{% \IfThenElse{<if>}{<then>}{<else>}
+%   \State \algorithmicif\ #1\ \algorithmicthen\ #2\ \algorithmicelse\ #3}
+% \algrenewcommand\algorithmicindent{1.0em}%
+
+\lstdefinestyle{c_code}{
+    numberstyle=\tiny,
+    autogobble,
+    columns=fullflexible,
+    showspaces=false,
+    showtabs=false,
+    breaklines=true,
+    showstringspaces=false,
+    breakatwhitespace=true,
+    basicstyle=\linespread{0.92}\ttfamily\footnotesize,
+    xleftmargin=2em,
+    xrightmargin=1em,
+    tabsize=2,
+    captionpos=b,
+    morecomment=[l][\color{gray}]{//},
+    frameshape={RYR}{Y}{Y}{RYR},
+}
+\lstset{style=c_code}
+
+\definecolor{darkorange}{RGB}{210, 82, 36}
+
+% \definecolor{lightgray}{rgb}{0.97, 0.97, 0.97}
+% \definecolor{darkgray}{rgb}{0.40, 0.40, 0.40}
+% \lstdefinestyle{artifact}{
+%     numbers=none,
+%     autogobble,
+%     columns=fullflexible,
+%     showspaces=false,
+%     keepspaces=true,
+%     showtabs=false,
+%     breaklines=true,
+%     showstringspaces=false,
+%     breakatwhitespace=true,
+%     basicstyle=\linespread{0.92}\ttfamily\footnotesize,
+%     xleftmargin=0.5em,
+%     xrightmargin=0.5em,
+%     backgroundcolor=\color{lightgray},
+%     frame=tb,
+%     framerule=0.3pt,
+%     tabsize=2,
+%     captionpos=b,
+%     morecomment=[l][\color{darkgray}]{\#},
+% }
+
+% \lstset{style=c_code}
+% \lstset{morekeywords={for, if, typedef}}
+
+% \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+% \node[anchor=text,
+%       shape=circle,
+%       fill=white,
+%       draw, 
+%       align=center,
+%       inner sep=0pt, 
+%       minimum size=10pt] (char) {\small{#1}};}}
+
+% \titlespacing\section{0pt}{0.7\baselineskip}{0.25\baselineskip}
+% \titlespacing\subsection{0pt}{0.7\baselineskip}{0.25\baselineskip}
+
+% \setlength{\floatsep}{7pt plus 2pt minus 2pt}
+% \setlength{\textfloatsep}{7pt plus 2pt minus 2pt}
+% \setlength{\intextsep}{7pt plus 2pt minus 2pt}
+% \setlength{\dbltextfloatsep}{7pt plus 2pt minus 2pt}
+% \setlength{\dblfloatsep}{7pt plus 2pt minus 2pt}
+% \setlength{\abovecaptionskip}{7pt plus 2pt}

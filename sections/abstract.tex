@@ -1,0 +1,9 @@
+\begin{abstract}
+
+This paper presents \algname, a new GEMM-based convolution formulation for CPU architectures that eliminates data copies by exploiting the dimension and stride parameters of GEMM library calls. 
+Unlike prior approaches, which reduce convolution to GEMM through Image-to-Column (Im2col) transformations or smaller data copies, this formulation achieves zero-copy execution. 
+An extended version with minimal memory overhead further supports dilated and grouped convolutions, covering most convolution configurations.
+Extensive evaluation across a large dataset of convolutional layers demonstrates performance that is competitive with state-of-the-art implementations and superior to other published methods.
+When integrated into PyTorch, the approach yields end-to-end model speedups of up to 1.47$\times$.
+
+\end{abstract}

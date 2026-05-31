@@ -1,0 +1,46 @@
+\section{Related Work}
+
+Common approaches to optimizing convolution can be categorized as direct convolution and methods based on general matrix-matrix multiplication (GEMM), the Fast Fourier Transform (FFT), and Winograd's minimal filtering algorithm.
+FFT-based convolution is sensitive to small filter sizes, whereas Winograd-based methods often introduce numerical instability~\cite{Lavin2016,Zlateski2019,fast-conv-low-precision2024}.
+Direct convolution approaches use analytical performance models akin to those used in high-performance GEMM implementations~\cite{Zhang2018,Zheng2020,Ferrari2023}, however, generalizing them across different microarchitectures is both time-consuming and challenging.
+This work introduces \algname, a novel GEMM-based convolution algorithm.
+
+MEC~\cite{Cho2017}, SMM-Conv~\cite{Ofir2022}, and Yaconv~\cite{Korostelev2023} reduce convolution to GEMM similarly to \algname.
+MEC reduces vertical redundancies present in Im2col. 
+SMM-Conv and Yaconv observe that implicit smaller matrix multiplications arise when isolating a filter row (or column), which can be executed as GEMM operations.
+\algname addresses several limitations found in these prior works: 
+\begin{enumerate*}[label=(\roman*)]
+    \item MEC and SMM-Conv require additional temporary buffers for their execution.
+    Yaconv's output includes extraneous elements.
+    In the same convolution configurations supported by these approaches, \algname requires no additional buffers.
+
+    \item Yaconv, SMM-Conv, and MEC don't fully support dilated, grouped, and strided convolutions.
+    \algname supports all of them.
+    
+    \item Yaconv's algorithm is complex and tightly coupled to the BLIS library.
+    SMM-Conv, on the other hand, does not utilize a GEMM kernel, likely due to the small size of the matrices it multiplies.
+    \algname is a more portable approach, relying entirely on GEMM kernels for optimizations and is compatible with any BLAS library.
+
+    \item Yaconv does not support parallel execution, whereas SMM-Conv and MEC may utilize separate parallel steps in their execution. In contrast, \algname is fully fused into a single loop nest and trivially parallelized.
+    
+    \item Lastly, only \algname is evaluated in a large set of convolution layers, which enables the design of a heuristic to integrate it into a hybrid convolution approach, such as that used by PyTorch (\rsec{libtorch}).
+\end{enumerate*}
+
+\citet{Anderson2020} showed that conventional convolution can be decomposed into $\texttt{FH}\times\texttt{FW}$ pointwise convolutions that do not rely on Im2col.
+However, the two algorithms proposed in their work require additional memory, depend on the parallelism offered by GEMM kernels, and require the image tensor to be shifted or to have certain elements temporarily zeroed between GEMM calls.
+\algname requires no auxiliary memory and no extra operations beyond GEMM.
+Moreover, while \citet{Anderson2020} do not address how their methods can support strided, padded, dilated, or grouped convolutions, \algname is designed to handle all of these convolution variants.
+
+Another approach used in prior work is to fuse the Im2col transformation into the GEMM operation itself~\cite{Wang2019,Dukhan2019,Juan2020,Zhao2023}.
+Dukhan~\cite{Dukhan2019} introduced the Indirect Convolution, which modifies the GEMM routine used in an Im2col implementation to access the image tensor directly via an indirection buffer.
+\citet{Juan2020} integrate Im2col into the packing step of GEMM, generating packed tiles directly from the image tensor.
+While these methods reduce the overhead associated with Im2col, they require modifications to the GEMM implementation.
+In contrast, \algname eliminates the Im2col transformation and relies on unmodified GEMM kernels that access the image tensor directly.
+
+% Georganas \etal~\cite{Georganas2020} introduced a novel batch-reduce GEMM kernel and demonstrated its suitability for implementing deep learning (DL) primitives.
+% Intel's state-of-the-art OneDNN framework combines the batch-reduce microkernel with just-in-time (JIT) compilation, among other optimization techniques~\cite{onednn}.
+% As seen in \rsec{libtorch}, this strategy achieves great performance in many convolution configurations.
+% However, OneDNN's approach has limited compatibility with the data layouts commonly used in DL frameworks such as PyTorch, requiring additional data transformations.
+% Consequently, PyTorch is unable to fully extract the performance offered by OneDNN.
+% \algname relies on standard GEMM kernels, making it a more portable solution due to the widespread availability of high-performance GEMM implementations.
+% Its reliance on conventional GEMM also simplifies integration into existing DL frameworks.

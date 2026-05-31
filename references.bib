@@ -1,0 +1,788 @@
+% First the Full Name is given, then the abbreviation used in the AMS Math
+% Reviews, with an indication if it could not be found there.
+% Note the 2nd overwrites the 1st, so swap them if you want the full name.
+
+ %{AMS}
+ @String{AMSTrans = "American Mathematical Society Translations" }
+ @String{AMSTrans = "Amer. Math. Soc. Transl." }
+ @String{BullAMS = "Bulletin of the American Mathematical Society" }
+ @String{BullAMS = "Bull. Amer. Math. Soc." }
+ @String{ProcAMS = "Proceedings of the American Mathematical Society" }
+ @String{ProcAMS = "Proc. Amer. Math. Soc." }
+ @String{TransAMS = "Transactions of the American Mathematical Society" }
+ @String{TransAMS = "Trans. Amer. Math. Soc." }
+
+ %ACM
+ @String{CACM = "Communications of the {ACM}" }
+ @String{CACM = "Commun. {ACM}" }
+ @String{CompServ = "Comput. Surveys" }
+ @String{JACM = "J. ACM" }
+ @String{ACMMathSoft = "{ACM} Transactions on Mathematical Software" }
+ @String{ACMMathSoft = "{ACM} Trans. Math. Software" }
+ @String{SIGNUM = "{ACM} {SIGNUM} Newsletter" }
+ @String{SIGNUM = "{ACM} {SIGNUM} Newslett." }
+ @String{TACO = "{ACM} Trans. Archit. Code Optim." }
+
+ @String{AmerSocio = "American Journal of Sociology" }
+ @String{AmerStatAssoc = "Journal of the American Statistical Association" }
+ @String{AmerStatAssoc = "J. Amer. Statist. Assoc." }
+ @String{ApplMathComp = "Applied Mathematics and Computation" }
+ @String{ApplMathComp = "Appl. Math. Comput." }
+ @String{AmerMathMonthly = "American Mathematical Monthly" }
+ @String{AmerMathMonthly = "Amer. Math. Monthly" }
+ @String{BIT = "{BIT}" }
+ @String{BritStatPsych = "British Journal of Mathematical and Statistical Psychology" }
+ @String{BritStatPsych = "Brit. J. Math. Statist. Psych." }
+ @String{CanMathBull = "Canadian Mathematical Bulletin" }
+ @String{CanMathBull = "Canad. Math. Bull." }
+ @String{CompApplMath = "Journal of Computational and Applied Mathematics" }
+ @String{CompApplMath = "J. Comput. Appl. Math." }
+ @String{CompPhys = "Journal of Computational Physics" }
+ @String{CompPhys = "J. Comput. Phys." }
+ @String{CompStruct = "Computers and Structures" }
+ @String{CompStruct = "Comput. \& Structures" }
+ @String{CompJour = "The Computer Journal" }
+ @String{CompJour = "Comput. J." }
+ @String{CompSysSci = "Journal of Computer and System Sciences" }
+ @String{CompSysSci = "J. Comput. System Sci." }
+ @String{Computing = "Computing" }
+ @String{ContempMath = "Contemporary Mathematics" }
+ @String{ContempMath = "Contemp. Math." }
+ @String{Crelle = "Crelle's Journal" }
+ @String{GiornaleMath = "Giornale di Mathematiche" }
+ @String{GiornaleMath = "Giorn. Mat." } % didn't find in AMS MR., ibid.
+
+ %IEEE
+ @String{Computer = "{IEEE} Computer" }
+ @String{IEEETransComp = "{IEEE} Transactions on Computers" }
+ @String{IEEETransComp = "{IEEE} Trans. Comput." }
+ @String{IEEETransAC = "{IEEE} Transactions on Automatic Control" }
+ @String{IEEETransAC = "{IEEE} Trans. Automat. Control" }
+ @String{IEEESpec = "{IEEE} Spectrum" } % didn't find in AMS MR
+ @String{ProcIEEE = "Proceedings of the {IEEE}" }
+ @String{ProcIEEE = "Proc. {IEEE}" } % didn't find in AMS MR
+ @String{IEEETransAeroElec = "{IEEE} Transactions on Aerospace and Electronic Systems" }
+ @String{IEEETransAeroElec = "{IEEE} Trans. Aerospace Electron. Systems" }
+
+ @String{IMANumerAna = "{IMA} Journal of Numerical Analysis" }
+ @String{IMANumerAna = "{IMA} J. Numer. Anal." }
+ @String{InfProcLet = "Information Processing Letters" }
+ @String{InfProcLet = "Inform. Process. Lett." }
+ @String{InstMathApp = "Journal of the Institute of Mathematics and its Applications" }
+ @String{InstMathApp = "J. Inst. Math. Appl." }
+ @String{IntControl = "International Journal of Control" }
+ @String{IntControl = "Internat. J. Control" }
+ @String{IntNumerEng = "International Journal for Numerical Methods in Engineering" }
+ @String{IntNumerEng = "Internat. J. Numer. Methods Engrg." }
+ @String{IntSuper = "International Journal of Supercomputing Applications" }
+ @String{IntSuper = "Internat. J. Supercomputing Applic." } % didn't find in AMS MR
+ @String{Kibernetika = "Kibernetika" }
+ @String{JResNatBurStand = "Journal of Research of the National Bureau of Standards" }
+ @String{JResNatBurStand = "J. Res. Nat. Bur. Standards" }
+ @String{LinAlgApp = "Linear Algebra and its Applications" }
+ @String{LinAlgApp = "Linear Algebra Appl." }
+ @String{MathAnaAppl = "Journal of Mathematical Analysis and Applications" }
+ @String{MathAnaAppl = "J. Math. Anal. Appl." }
+ @String{MathAnnalen = "Mathematische Annalen" }
+ @String{MathAnnalen = "Math. Ann." }
+ @String{MathPhys = "Journal of Mathematical Physics" }
+ @String{MathPhys = "J. Math. Phys." }
+ @String{MathComp = "Mathematics of Computation" }
+ @String{MathComp = "Math. Comp." }
+ @String{MathScand = "Mathematica Scandinavica" }
+ @String{MathScand = "Math. Scand." }
+ @String{TablesAidsComp = "Mathematical Tables and Other Aids to Computation" }
+ @String{TablesAidsComp = "Math. Tables Aids Comput." }
+ @String{NumerMath = "Numerische Mathematik" }
+ @String{NumerMath = "Numer. Math." }
+ @String{PacificMath = "Pacific Journal of Mathematics" }
+ @String{PacificMath = "Pacific J. Math." }
+ @String{ParDistComp = "Journal of Parallel and Distributed Computing" }
+ @String{ParDistComp = "J. Parallel and Distrib. Comput." } % didn't find in AMS MR
+ @String{ParComputing = "Parallel Computing" }
+ @String{ParComputing = "Parallel Comput." }
+ @String{PhilMag = "Philosophical Magazine" }
+ @String{PhilMag = "Philos. Mag." }
+ @String{ProcNAS = "Proceedings of the National Academy of Sciences of the USA" }
+ @String{ProcNAS = "Proc. Nat. Acad. Sci. U. S. A." }
+ @String{Psychometrika = "Psychometrika" }
+ @String{QuartMath = "Quarterly Journal of Mathematics, Oxford, Series (2)" }
+ @String{QuartMath = "Quart. J. Math. Oxford Ser. (2)" }
+ @String{QuartApplMath = "Quarterly of Applied Mathematics" }
+ @String{QuartApplMath = "Quart. Appl. Math." }
+ @String{RevueInstStat = "Review of the International Statisical Institute" }
+ @String{RevueInstStat = "Rev. Inst. Internat. Statist." }
+
+ %SIAM
+ @String{JSIAM = "Journal of the Society for Industrial and Applied Mathematics" }
+ @String{JSIAM = "J. Soc. Indust. Appl. Math." }
+ @String{JSIAMB = "Journal of the Society for Industrial and Applied Mathematics, Series B, Numerical Analysis" }
+ @String{JSIAMB = "J. Soc. Indust. Appl. Math. Ser. B Numer. Anal." }
+ @String{SIAMAlgMeth = "{SIAM} Journal on Algebraic and Discrete Methods" }
+ @String{SIAMAlgMeth = "{SIAM} J. Algebraic Discrete Methods" }
+ @String{SIAMAppMath = "{SIAM} Journal on Applied Mathematics" }
+ @String{SIAMAppMath = "{SIAM} J. Appl. Math." }
+ @String{SIAMComp = "{SIAM} Journal on Computing" }
+ @String{SIAMComp = "{SIAM} J. Comput." }
+ @String{SIAMMatrix = "{SIAM} Journal on Matrix Analysis and Applications" }
+ @String{SIAMMatrix = "{SIAM} J. Matrix Anal. Appl." }
+ @String{SIAMNumAnal = "{SIAM} Journal on Numerical Analysis" }
+ @String{SIAMNumAnal = "{SIAM} J. Numer. Anal." }
+ @String{SIAMReview = "{SIAM} Review" }
+ @String{SIAMReview = "{SIAM} Rev." }
+ @String{SIAMSciStat = "{SIAM} Journal on Scientific and Statistical Computing" }
+ @String{SIAMSciStat = "{SIAM} J. Sci. Statist. Comput." }
+
+ @String{SoftPracExp = "Software Practice and Experience" }
+ @String{SoftPracExp = "Software Prac. Experience" } % didn't find in AMS MR
+ @String{StatScience = "Statistical Science" }
+ @String{StatScience = "Statist. Sci." }
+ @String{Techno = "Technometrics" }
+ @String{USSRCompMathPhys = "{USSR} Computational Mathematics and Mathematical Physics" }
+ @String{USSRCompMathPhys = "{U. S. S. R.} Comput. Math. and Math. Phys." }
+ @String{VLSICompSys = "Journal of {VLSI} and Computer Systems" }
+ @String{VLSICompSys = "J. {VLSI} Comput. Syst." }
+ @String{ZAngewMathMech = "Zeitschrift fur Angewandte Mathematik und Mechanik" }
+ @String{ZAngewMathMech = "Z. Angew. Math. Mech." }
+ @String{ZAngewMathPhys = "Zeitschrift fur Angewandte Mathematik und Physik" }
+ @String{ZAngewMathPhys = "Z. Angew. Math. Phys." }
+
+% Publishers % ================================================= |
+
+ @String{Academic = "Academic Press" }
+ @String{ACMPress = "{ACM} Press" }
+ @String{ACM = "Association for Computing Machinery ({ACM})" }
+ @String{AdamHilger = "Adam Hilger" }
+ @String{AddisonWesley = "Addison-Wesley" }
+ @String{AllynBacon = "Allyn and Bacon" }
+ @String{AMS = "American Mathematical Society" }
+ @String{Birkhauser = "Birkha{\"u}ser" }
+ @String{CambridgePress = "Cambridge University Press" }
+ @String{Chelsea = "Chelsea" }
+ @String{ClaredonPress = "Claredon Press" }
+ @String{DoverPub = "Dover Publications" }
+ @String{Eyolles = "Eyolles" }
+ @String{HoltRinehartWinston = "Holt, Rinehart and Winston" }
+ @String{IEEEPublisher = "{IEEE} Computer Society Press"}
+ @String{Interscience = "Interscience" }
+ @String{JohnsHopkinsPress = "The Johns Hopkins University Press" }
+ @String{JohnWileySons = "John Wiley and Sons" }
+ @String{Macmillan = "Macmillan" }
+ @String{MathWorks = "The Math Works Inc." }
+ @String{McGrawHill = "McGraw-Hill" }
+ @String{NatBurStd = "National Bureau of Standards" }
+ @String{NorthHolland = "North-Holland" }
+ @String{OxfordPress = "Oxford University Press" }  %address Oxford or London?
+ @String{PergamonPress = "Pergamon Press" }
+ @String{PlenumPress = "Plenum Press" }
+ @String{PrenticeHall = "Prentice-Hall" }
+ @String{SIAMPub = "{SIAM} Publications" }
+ @String{Springer = "Springer-Verlag" }
+ @String{TexasPress = "University of Texas Press" }
+ @String{VanNostrand = "Van Nostrand" }
+ @String{WHFreeman = "W. H. Freeman and Co." }
+
+% Conferences % ================================================ |
+
+@String{PLDI = "International Conference on Programming Language Design and Implementation ({PLDI})"}
+@String{PACT = "International Conference on Parallel Architectures and Compilation Techniques ({PACT})"}
+@String{POPL = "Symposium on Principles of Programming Languages ({POPL})"}
+@String{MEMSYS = "International Symposium on Memory Systems ({MEMSYS})"}
+@String{CGO = "International Symposium on Code Generation and Optimization ({CGO})"}
+@String{HiPEAC = "International Conference on High-Performance Embedded Architectures and Compilers ({HiPEAC})"}
+@String{CC = "International Conference on Compiler Construction ({CC})"}
+@String{ISSAC = "International Symposium on Symbolic and Algebraic Computation ({ISSAC})"}
+@String{ISMM = "International Symposium on Memory Management ({ISMM})"}
+@String{CVPRW = "Conference on Computer Vision and Pattern Recognition Workshops ({CVPRW})"}
+@String{CVPR = "Conference on Computer Vision and Pattern Recognition ({CVPR})"}
+@String{MM = "International Conference on Multimedia ({MM})"}
+@String{SC = "International Conference for High Performance Computing, Networking, Storage and Analysis ({SC})"}
+@String{SBAC-PAD = "International Symposium on Computer Architecture and High Performance Computing ({SBAC-PAD})"}
+@String{ICML= "International Conference on Machine Learning ({ICML}"}
+@String{IJCNN= "International Joint Conference on Neural Networks ({IJCNN})"}
+@String{IPDPS= "International Parallel and Distributed Processing Symposium ({IPDPS})"}
+@String{ICS = "International Conference on Supercomputing ({ICS})"}
+@String{OSDI = "Symposium on Operating Systems Design and Implementation ({OSDI})"}
+
+% ============================================================== |
+
+@article{Korostelev2023,
+  title        = {YaConv: Convolution with Low Cache Footprint},
+  author       = {Korostelev, Ivan and L. De Carvalho, Jo\~{a}o P. and Moreira, Jos\'{e} and Amaral, Jos\'{e} Nelson},
+  year         = 2023,
+  month        = feb,
+  journal      = TACO,
+  publisher    = ACM,
+  address      = {New York, NY, USA},
+  volume       = 20,
+  number       = 1,
+  doi          = {10.1145/3570305},
+  issn         = {1544-3566},
+  url          = {https://doi.org/10.1145/3570305},
+  issue_date   = {March 2023},
+  articleno    = 18,
+  numpages     = 18,
+}
+@article{Goto2008,
+  title        = {Anatomy of high-performance matrix multiplication},
+  author       = {Goto, Kazushige and Geijn, Robert A. van de},
+  year         = 2008,
+  month        = may,
+  journal      = ACMMathSoft,
+  publisher    = ACM,
+  address      = {New York, NY, USA},
+  volume       = 34,
+  number       = 3,
+  doi          = {10.1145/1356052.1356053},
+  issn         = {0098-3500},
+  url          = {https://doi.org/10.1145/1356052.1356053},
+  issue_date   = {May 2008},
+  articleno    = 12,
+  numpages     = 25,
+}
+@article{LeCun1989,
+  title        = {Backpropagation Applied to Handwritten Zip Code Recognition},
+  author       = {LeCun, Y. and Boser, B. and Denker, J. S. and Henderson, D. and Howard, R. E. and Hubbard, W. and Jackel, L. D.},
+  year         = 1989,
+  journal      = {Neural Computation},
+  volume       = 1,
+  number       = 4,
+  pages        = {541--551},
+  doi          = {10.1162/neco.1989.1.4.541},
+  url          = {https://doi.org/10.1162/neco.1989.1.4.541},
+}
+@article{Everingham10,
+  title        = "The Pascal Visual Object Classes (VOC) Challenge",
+  author       = "Everingham, M. and Van~Gool, L. and Williams, C. K. I. and Winn, J. and Zisserman, A.",
+  year         = 2010,
+  month        = jun,
+  journal      = "International Journal of Computer Vision",
+  volume       = 88,
+  number       = 2,
+  pages        = "303--338",
+  doi          = {10.1007/s11263-009-0275-4},
+  url          = {https://doi.org/10.1007/s11263-009-0275-4},
+}
+@article{LeCun1998,
+  title        = {Gradient-based learning applied to document recognition},
+  author       = {Lecun, Y. and Bottou, L. and Bengio, Y. and Haffner, P.},
+  year         = 1998,
+  journal      = {Proceedings of the IEEE},
+  volume       = 86,
+  number       = 11,
+  pages        = {2278--2324},
+  doi          = {10.1109/5.726791},
+  url          = {https://doi.org/10.1109/5.726791},
+}
+@article{level3blas2008,
+  title        = {High-performance implementation of the level-3 BLAS},
+  author       = {Goto, Kazushige and Van De Geijn, Robert},
+  year         = 2008,
+  month        = jul,
+  journal      = ACMMathSoft,
+  publisher    = ACM,
+  address      = {New York, NY, USA},
+  volume       = 35,
+  number       = 1,
+  doi          = {10.1145/1377603.1377607},
+  issn         = {0098-3500},
+  url          = {https://doi.org/10.1145/1377603.1377607},
+  articleno    = 4,
+  numpages     = 14,
+}
+@article{blis2015,
+  title        = {BLIS: A Framework for Rapidly Instantiating BLAS Functionality},
+  author       = {Van Zee, Field G. and van de Geijn, Robert A.},
+  year         = 2015,
+  month        = jun,
+  journal      = ACMMathSoft,
+  publisher    = ACM,
+  address      = {New York, NY, USA},
+  volume       = 41,
+  number       = 3,
+  doi          = {10.1145/2764454},
+  issn         = {0098-3500},
+  url          = {https://doi.org/10.1145/2764454},
+  issue_date   = {June 2015},
+  articleno    = 14,
+  numpages     = 33,
+}
+@article{Carvalho2022,
+  title        = {Compiling for the IBM Matrix Engine for Enterprise Workloads},
+  author       = {de Carvalho, Jo\~{a}o P. L. and Moreira, Jos\'{e} E. and Amaral, Jos\'{e} Nelson},
+  year         = 2022,
+  journal      = {IEEE Micro},
+  volume       = 42,
+  number       = 5,
+  pages        = {34--40},
+  doi          = {10.1109/MM.2022.3176529},
+  url          = {https://doi.org/10.1109/MM.2022.3176529},
+}
+@article{nvidia2021,
+  title        = {NVIDIA A100 Tensor Core GPU: Performance and Innovation},
+  author       = {Choquette, Jack and Gandhi, Wishwesh and Giroux, Olivier and Stam, Nick and Krashinsky, Ronny},
+  year         = 2021,
+  journal      = {IEEE Micro},
+  volume       = 41,
+  number       = 2,
+  pages        = {29--35},
+  doi          = {10.1109/MM.2021.3061394},
+  url          = {https://doi.org/10.1109/MM.2021.3061394},
+}
+@article{openmp1998,
+  title        = {OpenMP: an industry standard API for shared-memory programming},
+  author       = {Dagum, L. and Menon, R.},
+  year         = 1998,
+  journal      = {IEEE Computational Science and Engineering},
+  volume       = 5,
+  number       = 1,
+  pages        = {46--55},
+  doi          = {10.1109/99.660313},
+  url          = {https://doi.org/10.1109/99.660313},
+}
+@article{Zhao2023,
+  title        = {ECBC: Efficient Convolution via Blocked Columnizing},
+  author       = {Zhao, Tianli and Hu, Qinghao and He, Xiangyu and Xu, Weixiang and Wang, Jiaxing and Leng, Cong and Cheng, Jian},
+  year         = 2023,
+  journal      = {IEEE Transactions on Neural Networks and Learning Systems},
+  volume       = 34,
+  number       = 1,
+  pages        = {433--445},
+  doi          = {10.1109/TNNLS.2021.3095276},
+  url          = {https://doi.org/10.1109/TNNLS.2021.3095276},
+}
+@article{Ferrari2023,
+  title        = {Advancing Direct Convolution Using Convolution Slicing Optimization and ISA Extensions},
+  author       = {Ferrari, Victor and Sousa, Rafael and Pereira, Marcio and L. De Carvalho, Jo\~{a}o P. and Amaral, Jos\'{e} Nelson and Moreira, Jos\'{e} and Araujo, Guido},
+  year         = 2023,
+  month        = dec,
+  journal      = TACO,
+  publisher    = ACM,
+  address      = {New York, NY, USA},
+  volume       = 20,
+  number       = 4,
+  doi          = {10.1145/3625004},
+  issn         = {1544-3566},
+  url          = {https://doi.org/10.1145/3625004},
+  issue_date   = {December 2023},
+  articleno    = 54,
+  numpages     = 26,
+  keywords     = {Convolution, packing, cache blocking, compilers},
+}
+@inproceedings{Zheng2020,
+  title        = {Ansor: generating high-performance tensor programs for deep learning},
+  author       = {Zheng, Lianmin and Jia, Chengfan and Sun, Minmin and Wu, Zhao and Yu, Cody Hao and Haj-Ali, Ameer and Wang, Yida and Yang, Jun and Zhuo, Danyang and Sen, Koushik and Gonzalez, Joseph E. and Stoica, Ion},
+  year         = 2020,
+  booktitle    = OSDI,
+  publisher    = {USENIX Association},
+  address      = {USA},
+  isbn         = {978-1-939133-19-9},
+  url          = {https://www.usenix.org/conference/osdi20/presentation/zheng},
+  articleno    = 49,
+  numpages     = 17,
+}
+@inproceedings{Zhang2018,
+  title        = {High Performance Zero-Memory Overhead Direct Convolutions},
+  author       = {Zhang, Jiyuan and Franchetti, Franz and Low, Tze Meng},
+  year         = 2018,
+  month        = {10--15 Jul},
+  booktitle    = ICML,
+  publisher    = {PMLR},
+  address      = {USA},
+  volume       = 80,
+  pages        = {5776--5785},
+  url          = {https://proceedings.mlr.press/v80/zhang18d.html},
+  editor       = {Dy, Jennifer and Krause, Andreas},
+}
+@inproceedings{Zlateski2019,
+  title        = {The anatomy of efficient FFT and winograd convolutions on modern CPUs},
+  author       = {Zlateski, Aleksandar and Jia, Zhen and Li, Kai and Durand, Fredo},
+  year         = 2019,
+  booktitle    = ICS,
+  location     = {Phoenix, Arizona},
+  publisher    = ACM,
+  address      = {New York, NY, USA},
+  pages        = {414--424},
+  doi          = {10.1145/3330345.3330382},
+  isbn         = 9781450360791,
+  url          = {https://doi.org/10.1145/3330345.3330382},
+  numpages     = 11,
+}
+@inproceedings{Lavin2016,
+  title        = {Fast Algorithms for Convolutional Neural Networks},
+  author       = {Lavin, Andrew and Gray, Scott},
+  year         = 2016,
+  booktitle    = CVPR,
+  publisher    = IEEEPublisher,
+  address      = {New York, NY, USA},
+  pages        = {4013--4021},
+  doi          = {10.1109/CVPR.2016.435},
+  url          = {https://doi.org/10.1109/CVPR.2016.435},
+}
+@inproceedings{Georganas2020,
+  title        = {Harnessing Deep Learning via a Single Building Block},
+  author       = {Georganas, Evangelos and Banerjee, Kunal and Kalamkar, Dhiraj and Avancha, Sasikanth and Venkat, Anand and Anderson, Michael and Henry, Greg and Pabst, Hans and Heinecke, Alexander},
+  year         = 2020,
+  booktitle    = IPDPS,
+  publisher    = IEEEPublisher,
+  address      = {New York, NY, USA},
+  pages        = {222--233},
+  doi          = {10.1109/IPDPS47924.2020.00032},
+  url          = {https://doi.org/10.1109/IPDPS47924.2020.00032},
+}
+@inproceedings{Anderson2020,
+  title        = {High-Performance Low-Memory Lowering: GEMM-based Algorithms for DNN Convolution},
+  author       = {Anderson, Andrew and Vasudevan, Aravind and Keane, Cormac and Gregg, David},
+  year         = 2020,
+  booktitle    = SBAC-PAD,
+  publisher    = IEEEPublisher,
+  address      = {New York, NY, USA},
+  pages        = {99--106},
+  doi          = {10.1109/SBAC-PAD49847.2020.00024},
+  url          = {https://doi.org/10.1109/SBAC-PAD49847.2020.00024},
+}
+@inproceedings{Wang2019,
+  title        = {Parallel convolution algorithm using implicit matrix multiplication on multi-core CPUs},
+  author       = {Wang, Qinglin and Mei, Songzhu and Liu, Jie and Gong, Chunye},
+  year         = 2019,
+  booktitle    = IJCNN,
+  publisher    = IEEEPublisher,
+  address      = {New York, NY, USA},
+  pages        = {1--7},
+  doi          = {10.1109/IJCNN.2019.8852012},
+  url          = {https://doi.org/10.1109/IJCNN.2019.8852012},
+}
+@inproceedings{Cho2017,
+  title        = {MEC: memory-efficient convolution for deep neural network},
+  author       = {Cho, Minsik and Brand, Daniel},
+  year         = 2017,
+  booktitle    = ICML,
+  location     = {Sydney, NSW, Australia},
+  publisher    = {JMLR.org},
+  address      = {USA},
+  pages        = {815--824},
+  doi          = {10.5555/3305381.3305466},
+  url          = {https://doi.org/10.5555/3305381.3305466},
+  numpages     = 10,
+}
+@inproceedings{Juan2020,
+  title        = {High Performance and Portable Convolution Operators for Multicore Processors},
+  author       = {San Juan, Pablo and Castell\'{o}, Adri\'{a}n and Dolz, Manuel F. and Alonso-Jord\'{a}, Pedro and Quintana-Ort\'{\i}, Enrique S.},
+  year         = 2020,
+  booktitle    = SBAC-PAD,
+  publisher    = IEEEPublisher,
+  address      = {New York, NY, USA},
+  pages        = {91--98},
+  doi          = {10.1109/SBAC-PAD49847.2020.00023},
+  url          = {https://doi.org/10.1109/SBAC-PAD49847.2020.00023},
+}
+@inproceedings{Rohwedder2023,
+  title        = {To Pack or Not to Pack: A Generalized Packing Analysis and Transformation},
+  author       = {Salvador Rohwedder, Caio and Henderson, Nathan and De Carvalho, Jo\~{a}o P. L. and Chen, Yufei and Amaral, Jos\'{e} Nelson},
+  year         = 2023,
+  booktitle    = CGO,
+  location     = {Montr\'{e}al, QC, Canada},
+  publisher    = ACM,
+  address      = {New York, NY, USA},
+  pages        = {14--27},
+  doi          = {10.1145/3579990.3580024},
+  isbn         = 9798400701016,
+  url          = {https://doi.org/10.1145/3579990.3580024},
+  numpages     = 14,
+}
+@inproceedings{tpu2017,
+  title        = {In-Datacenter Performance Analysis of a Tensor Processing Unit},
+  author       = {Jouppi, Norman P. and Young, Cliff and Patil, Nishant and Patterson, David and Agrawal, Gaurav and Bajwa, Raminder and Bates, Sarah and Bhatia, Suresh and Boden, Nan and Borchers, Al and Boyle, Rick and Cantin, Pierre-luc and Chao, Clifford and Clark, Chris and Coriell, Jeremy and Daley, Mike and Dau, Matt and Dean, Jeffrey and Gelb, Ben and Ghaemmaghami, Tara Vazir and Gottipati, Rajendra and Gulland, William and Hagmann, Robert and Ho, C. Richard and Hogberg, Doug and Hu, John and Hundt, Robert and Hurt, Dan and Ibarz, Julian and Jaffey, Aaron and Jaworski, Alek and Kaplan, Alexander and Khaitan, Harshit and Killebrew, Daniel and Koch, Andy and Kumar, Naveen and Lacy, Steve and Laudon, James and Law, James and Le, Diemthu and Leary, Chris and Liu, Zhuyuan and Lucke, Kyle and Lundin, Alan and MacKean, Gordon and Maggiore, Adriana and Mahony, Maire and Miller, Kieran and Nagarajan, Rahul and Narayanaswami, Ravi and Ni, Ray and Nix, Kathy and Norrie, Thomas and Omernick, Mark and Penukonda, Narayana and Phelps, Andy and Ross, Jonathan and Ross, Matt and Salek, Amir and Samadiani, Emad and Severn, Chris and Sizikov, Gregory and Snelham, Matthew and Souter, Jed and Steinberg, Dan and Swing, Andy and Tan, Mercedes and Thorson, Gregory and Tian, Bo and Toma, Horia and Tuttle, Erick and Vasudevan, Vijay and Walter, Richard and Wang, Walter and Wilcox, Eric and Yoon, Doe Hyun},
+  year         = 2017,
+  booktitle    = {International Symposium on Computer Architecture},
+  location     = {Toronto, ON, Canada},
+  publisher    = ACM,
+  address      = {New York, NY, USA},
+  pages        = {1--12},
+  doi          = {10.1145/3079856.3080246},
+  isbn         = 9781450348928,
+  url          = {https://doi.org/10.1145/3079856.3080246},
+  numpages     = 12,
+}
+@inproceedings{openblas2013,
+  title        = {AUGEM: automatically generate high performance dense linear algebra kernels on x86 CPUs},
+  author       = {Wang, Qian and Zhang, Xianyi and Zhang, Yunquan and Yi, Qing},
+  year         = 2013,
+  booktitle    = {International Conference on High Performance Computing, Networking, Storage and Analysis},
+  location     = {Denver, Colorado},
+  publisher    = ACM,
+  address      = {New York, NY, USA},
+  doi          = {10.1145/2503210.2503219},
+  isbn         = 9781450323789,
+  url          = {https://doi.org/10.1145/2503210.2503219},
+  articleno    = 25,
+  numpages     = 12,
+}
+@inproceedings{MobilenetV3,
+  title        = {{ Searching for MobileNetV3 }},
+  author       = {Howard, Andrew and Sandler, Mark and Chen, Bo and Wang, Weijun and Chen, Liang-Chieh and Tan, Mingxing and Chu, Grace and Vasudevan, Vijay and Zhu, Yukun and Pang, Ruoming and Adam, Hartwig and Le, Quoc},
+  year         = 2019,
+  month        = nov,
+  booktitle    = {International Conference on Computer Vision (ICCV)},
+  publisher    = {IEEE Computer Society},
+  address      = {Los Alamitos, CA, USA},
+  pages        = {1314--1324},
+  doi          = {10.1109/ICCV.2019.00140},
+  url          = {https://doi.ieeecomputersociety.org/10.1109/ICCV.2019.00140},
+}
+@inproceedings{resnet2016,
+  title        = {Deep Residual Learning for Image Recognition},
+  author       = {He, Kaiming and Zhang, Xiangyu and Ren, Shaoqing and Sun, Jian},
+  year         = 2016,
+  booktitle    = CVPR,
+  publisher    = IEEEPublisher,
+  address      = {New York, NY, USA},
+  pages        = {770--778},
+  doi          = {10.1109/CVPR.2016.90},
+  url          = {https://doi.org/10.1109/CVPR.2016.90},
+}
+@inproceedings{Ofir2022,
+  title        = {{SMM-Conv}: Scalar Matrix Multiplication with Zero Packing for Accelerated Convolution},
+  author       = {Ofir, Amir and Ben-Artzi, Gil},
+  year         = 2022,
+  month        = jun,
+  booktitle    = CVPRW,
+  publisher    = IEEEPublisher,
+  address      = {Los Alamitos, CA, USA},
+  pages        = {3066--3074},
+  doi          = {10.1109/CVPRW56347.2022.00346},
+  url          = {https://doi.ieeecomputersociety.org/10.1109/CVPRW56347.2022.00346},
+}
+@inproceedings{caffe2014,
+  title        = {Caffe: Convolutional Architecture for Fast Feature Embedding},
+  author       = {Jia, Yangqing and Shelhamer, Evan and Donahue, Jeff and Karayev, Sergey and Long, Jonathan and Girshick, Ross and Guadarrama, Sergio and Darrell, Trevor},
+  year         = 2014,
+  booktitle    = MM,
+  location     = {Orlando, Florida, USA},
+  publisher    = ACM,
+  address      = {New York, NY, USA},
+  pages        = {675--678},
+  doi          = {10.1145/2647868.2654889},
+  isbn         = 9781450330633,
+  url          = {https://doi.org/10.1145/2647868.2654889},
+  numpages     = 4,
+}
+@inproceedings{libxsmm2016,
+  title        = {LIBXSMM: accelerating small matrix multiplications by runtime code generation},
+  author       = {Heinecke, Alexander and Henry, Greg and Hutchinson, Maxwell and Pabst, Hans},
+  year         = 2016,
+  booktitle    = SC,
+  location     = {Salt Lake City, Utah},
+  publisher    = IEEEPublisher,
+  address      = {New York, NY, USA},
+  doi          = {10.5555/3014904.3015017},
+  isbn         = 9781467388153,
+  url          = {https://doi.org/10.5555/3014904.3015017},
+  articleno    = 84,
+  numpages     = 11,
+}
+@inproceedings{chellapilla2006,
+  title        = {High Performance Convolutional Neural Networks for Document Processing},
+  author       = {Chellapilla, Kumar and Puri, Sidd and Simard, Patrice},
+  year         = 2006,
+  booktitle    = {International Workshop on Frontiers in Handwriting Recognition},
+  publisher    = {Suvisoft},
+  address      = {La Baule (France)},
+  url          = {https://inria.hal.science/inria-00112631},
+}
+@inproceedings{libshalom2021,
+  title        = {LIBSHALOM: optimizing small and irregular-shaped matrix multiplications on ARMv8 multi-cores},
+  author       = {Yang, Weiling and Fang, Jianbin and Dong, Dezun and Su, Xing and Wang, Zheng},
+  year         = 2021,
+  booktitle    = SC,
+  location     = {St. Louis, Missouri},
+  publisher    = ACM,
+  address      = {New York, NY, USA},
+  doi          = {10.1145/3458817.3476217},
+  isbn         = 9781450384421,
+  url          = {https://doi.org/10.1145/3458817.3476217},
+  articleno    = 72,
+  numpages     = 14,
+}
+@inproceedings{pytorch2024,
+  title        = {PyTorch 2: Faster Machine Learning Through Dynamic Python Bytecode Transformation and Graph Compilation},
+  author       = {Ansel, Jason and Yang, Edward and He, Horace and Gimelshein, Natalia and Jain, Animesh and Voznesensky, Michael and Bao, Bin and Bell, Peter and Berard, David and Burovski, Evgeni and Chauhan, Geeta and Chourdia, Anjali and Constable, Will and Desmaison, Alban and DeVito, Zachary and Ellison, Elias and Feng, Will and Gong, Jiong and Gschwind, Michael and Hirsh, Brian and Huang, Sherlock and Kalambarkar, Kshiteej and Kirsch, Laurent and Lazos, Michael and Lezcano, Mario and Liang, Yanbo and Liang, Jason and Lu, Yinghai and Luk, C. K. and Maher, Bert and Pan, Yunjie and Puhrsch, Christian and Reso, Matthias and Saroufim, Mark and Siraichi, Marcos Yukio and Suk, Helen and Zhang, Shunting and Suo, Michael and Tillet, Phil and Zhao, Xu and Wang, Eikan and Zhou, Keren and Zou, Richard and Wang, Xiaodong and Mathews, Ajit and Wen, William and Chanan, Gregory and Wu, Peng and Chintala, Soumith},
+  year         = 2024,
+  booktitle    = {International Conference on Architectural Support for Programming Languages and Operating Systems},
+  location     = {La Jolla, CA, USA},
+  publisher    = ACM,
+  address      = {New York, NY, USA},
+  pages        = {929--947},
+  doi          = {10.1145/3620665.3640366},
+  isbn         = 9798400703850,
+  url          = {https://doi.org/10.1145/3620665.3640366},
+  numpages     = 19,
+}
+@inproceedings{onednn,
+  title        = {oneDNN Graph Compiler: A Hybrid Approach for High-Performance Deep Learning Compilation},
+  author       = {Li, Jianhui and Qin, Zhennan and Mei, Yijie and Cui, Jingze and Song, Yunfei and Chen, Ciyong and Zhang, Yifei and Du, Longsheng and Cheng, Xianhang and Jin, Baihui and Zhang, Yan and Ye, Jason and Lin, Eric and Lavery, Dan},
+  year         = 2024,
+  booktitle    = CGO,
+  location     = {Edinburgh, United Kingdom},
+  publisher    = IEEEPublisher,
+  address      = {New York, NY, USA},
+  pages        = {460--470},
+  doi          = {10.1109/CGO57630.2024.10444871},
+  isbn         = 9798350395099,
+  url          = {https://doi.org/10.1109/CGO57630.2024.10444871},
+  numpages     = 11,
+}
+@InProceedings{adversarial-linear-algebra-backends2025,
+  title = 	 {Adversarial Inputs for Linear Algebra Backends},
+  author =       {M\"{o}ller, Jonas and Pirch, Lukas and Weissberg, Felix and Baunsgaard, Sebastian and Eisenhofer, Thorsten and Rieck, Konrad},
+  booktitle = 	 ICML,
+  pages = 	 {44615--44626},
+  year = 	 {2025},
+  editor = 	 {Singh, Aarti and Fazel, Maryam and Hsu, Daniel and Lacoste-Julien, Simon and Berkenkamp, Felix and Maharaj, Tegan and Wagstaff, Kiri and Zhu, Jerry},
+  volume = 	 {267},
+  series = 	 {Proceedings of Machine Learning Research},
+  month = 	 {13--19 Jul},
+  publisher =    {PMLR},
+  url = 	 {https://proceedings.mlr.press/v267/moller25a.html},
+}
+
+@inproceedings{fast-conv-low-precision2024,
+  title = 	 {{SFC}: Achieve Accurate Fast Convolution under Low-precision Arithmetic},
+  author =       {He, Liulu and Zhao, Yufei and Gao, Rui and Du, Yuan and Du, Li},
+  booktitle = 	 ICML,
+  pages = 	 {18081--18093},
+  year = 	 {2024},
+  editor = 	 {Salakhutdinov, Ruslan and Kolter, Zico and Heller, Katherine and Weller, Adrian and Oliver, Nuria and Scarlett, Jonathan and Berkenkamp, Felix},
+  volume = 	 {235},
+  series = 	 {Proceedings of Machine Learning Research},
+  month = 	 {21--27 Jul},
+  publisher =    {PMLR},
+  url = 	 {https://proceedings.mlr.press/v235/he24m.html},
+}
+@inproceedings{efficientnet2019,
+  title = 	 {{E}fficient{N}et: Rethinking Model Scaling for Convolutional Neural Networks},
+  author =       {Tan, Mingxing and Le, Quoc},
+  booktitle = 	 ICML,
+  pages = 	 {6105--6114},
+  year = 	 {2019},
+  editor = 	 {Chaudhuri, Kamalika and Salakhutdinov, Ruslan},
+  volume = 	 {97},
+  series = 	 {Proceedings of Machine Learning Research},
+  month = 	 {09--15 Jun},
+  publisher =    {PMLR},
+  url = 	 {https://proceedings.mlr.press/v97/tan19a.html},
+}
+@book{jahne2005digital,
+  title        = {Digital Image Processing},
+  author       = {J{\"a}hne, B.},
+  year         = 2005,
+  publisher    = {Springer Berlin Heidelberg},
+  address      = {Germany},
+  doi          = {10.1007/3-540-27563-0},
+  isbn         = 9783540240358,
+  url          = {https://doi.org/10.1007/3-540-27563-0},
+  lccn         = 2005433261,
+}
+@misc{onnxruntime,
+  title        = {ONNX Runtime},
+  author       = {ONNX Runtime developers},
+  year         = 2021,
+  note         = {Version: 1.21.0},
+  howpublished = {\url{https://onnxruntime.ai/}},
+}
+@misc{pytorchChannelLast,
+  title        = {Channels Last Memory Format in PyTorch},
+  author       = {Vitaly Fedyunin},
+  year         = 2020,
+  url          = {https://pytorch.org/tutorials/intermediate/memory\%5Fformat\%5Ftutorial.html},
+  lastaccessed = {April 10, 2025},
+}
+@misc{Dukhan2019,
+  title        = {The Indirect Convolution Algorithm},
+  author       = {Marat Dukhan},
+  year         = 2019,
+  url          = {http://arxiv.org/abs/1907.02129},
+  eprint       = {1907.02129},
+  eprinttype   = {arXiv},
+}
+@misc{Chen2017,
+  title        = {Rethinking Atrous Convolution for Semantic Image Segmentation},
+  author       = {Liang{-}Chieh Chen and George Papandreou and Florian Schroff and Hartwig Adam},
+  year         = 2017,
+  url          = {http://arxiv.org/abs/1706.05587},
+  eprint       = {1706.05587},
+  eprinttype   = {arXiv},
+}
+@misc{Chen2018,
+  title        = {Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation},
+  author       = {Liang{-}Chieh Chen and Yukun Zhu and George Papandreou and Florian Schroff and Hartwig Adam},
+  year         = 2018,
+  url          = {http://arxiv.org/abs/1802.02611},
+  eprint       = {1802.02611},
+  eprinttype   = {arXiv},
+}
+@misc{Das2016,
+  title        = {Distributed Deep Learning Using Synchronous Stochastic Gradient Descent},
+  author       = {Dipankar Das and Sasikanth Avancha and Dheevatsa Mudigere and Karthikeyan Vaidyanathan and Srinivas Sridharan and Dhiraj D. Kalamkar and Bharat Kaul and Pradeep Dubey},
+  year         = 2016,
+  url          = {http://arxiv.org/abs/1602.06709},
+  eprint       = {1602.06709},
+  archiveprefix = {arXiv},
+}
+@misc{convbench,
+  title        = {ConvBench: A Comprehensive Benchmark for 2D Convolution Primitive Evaluation},
+  author       = {Lucas Alvarenga and Victor Ferrari and Rafael Souza and Marcio Pereira and Guido Araujo},
+  year         = 2024,
+  url          = {https://arxiv.org/abs/2407.10730},
+  eprint       = {2407.10730},
+  archiveprefix = {arXiv},
+}
+@misc{googlebench,
+  title        = {Benchmark},
+  author       = {Google},
+  year         = 2016,
+  url          = {https://github.com/google/benchmark},
+  lastaccessed = {January 31, 2025},
+}
+@misc{FangGithub,
+  title        = {DeepLabV3Plus-Pytorch},
+  author       = {Gongfan Fang},
+  year         = 2020,
+  url          = {https://github.com/VainF/DeepLabV3Plus-Pytorch},
+  lastaccessed = {March 20, 2025},
+}
+@misc{torchvision,
+  title        = {TorchVision: PyTorch's Computer Vision library},
+  author       = {Torchvision maintainers and contributors},
+  year         = 2016,
+  url          = {https://github.com/pytorch/vision},
+  lastaccessed = {January 31, 2025},
+}
+@misc{timm,
+  title        = {Timm: PyTorch Image Models},
+  author       = {Ross Wightman},
+  year         = 2019,
+  url          = {https://github.com/huggingface/pytorch-image-models},
+  lastaccessed = {January 31, 2025},
+}
+@misc{onemkl,
+  title        = {oneAPI Math Kernel Library ({OneMKL})},
+  author       = {Intel},
+  year         = 1994,
+  url          = {https://www.intel.com/content/www/us/en/developer/tools/oneapi/onemkl.html},
+  lastaccessed = {April 02, 2025},
+}
+@misc{tensorflow,
+  title        = {{TensorFlow}: Large-Scale Machine Learning on Heterogeneous Systems},
+  author       = {Mart\'{i}n~Abadi and Ashish~Agarwal and Paul~Barham and Eugene~Brevdo and Zhifeng~Chen and Craig~Citro and Greg~S.~Corrado and Andy~Davis and Jeffrey~Dean and Matthieu~Devin and Sanjay~Ghemawat and Ian~Goodfellow and Andrew~Harp and Geoffrey~Irving and Michael~Isard and Yangqing Jia and Rafal~Jozefowicz and Lukasz~Kaiser and Manjunath~Kudlur and Josh~Levenberg and Dandelion~Man\'{e} and Rajat~Monga and Sherry~Moore and Derek~Murray and Chris~Olah and Mike~Schuster and Jonathon~Shlens and Benoit~Steiner and Ilya~Sutskever and Kunal~Talwar and Paul~Tucker and Vincent~Vanhoucke and Vijay~Vasudevan and Fernanda~Vi\'{e}gas and Oriol~Vinyals and Pete~Warden and Martin~Wattenberg and Martin~Wicke and Yuan~Yu and Xiaoqiang~Zheng},
+  year         = 2015,
+  url          = {https://www.tensorflow.org/},
+  lastaccessed = {June 12, 2025},
+}
+@misc{Perf,
+  title        = {Linux Perf},
+  author       = {T. Gleixner and I. Molnar},
+  year         = 2009,
+  url          = {https://perfwiki.github.io/main/},
+  lastaccessed = {June 12, 2025},
+}
