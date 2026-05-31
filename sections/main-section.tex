@@ -5,7 +5,7 @@
 This is achieved by decomposing the convolution into multiple GEMM calls and leveraging the GEMM API to operate on non-contiguous input matrices.
 \algname's performance relies on heavily optimized GEMM kernels, making its algorithm simple and compatible with most architectures via open-source or vendor-specific BLAS libraries.
 \algname supports all convolution parameters used in PyTorch's \emph{Conv2D} operator (listed in \rtab{conv-parameters}), except for the padding mode, which is fixed to zero-padding.
-To provide this support, \algname includes two versions: a zero-copy implementation that covers most common configurations (\rsec{zconv-alg}), and an extended version that introduces a small copy step to support grouped and dilated convolutions (Appendix \ref{appendix:zconv-alg-ext}).
+To provide this support, \algname includes two versions: a zero-copy implementation that covers most common configurations (\rsec{zconv-alg}), and an extended version that introduces a small copy step to support grouped and dilated convolutions (\rsec{zconv-alg-ext}).
 The start of \ralg{zconv} specifies the required tensor layouts for \algname, which are commonly found in frameworks such as PyTorch~\cite{pytorch2024} and TensorFlow~\cite{tensorflow}. 
 To execute \algname in end-to-end models, its algorithm was integrated into PyTorch, as described in \rsec{pytorch-integration}.
 

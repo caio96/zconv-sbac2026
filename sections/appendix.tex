@@ -1,5 +1,5 @@
 \section{\algname Support for Dilation and Grouped Convolution}
-\label{appendix:zconv-alg-ext}
+\label{sec:zconv-alg-ext}
 
 \ralg{zconv-ext} presents the \algname algorithm extended to support dilated and grouped convolution.
 As in \ralg{zconv}, padding is omitted for readability.
@@ -60,7 +60,7 @@ Specifically, \texttt{OC/GR} per group, rather than the full output channel dime
 As a result, the base pointers to matrices $B$ and $C$ include an offset to the starting position of the current group, as shown in Lines~\ref{alg:zconv-ext:b} and~\ref{alg:zconv-ext:c}, and the corresponding row offsets of these matrices are handled through the leading dimension parameters \texttt{ldb} and \texttt{ldc}.
 
 \subsection{DeepLabV3+ Model Evaluation}
-\label{appendix:deeplabv3plus}
+\label{sec:deeplabv3plus}
 
 The first three models in \ref{fig:torch-multi} stand out for obtaining the highest speedups with \algname.
 These bars correspond to the following models: \emph{deeplabv3\_mobilenet\_v3\_large}, \emph{deeplabv3\_resnet50}, and \emph{deeplabv3\_resnet101}.
