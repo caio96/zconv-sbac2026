@@ -34,6 +34,24 @@
 
 \usepackage[textsize=tiny]{todonotes}
 
+% Line numbers for review only (remove by setting \reviewfalse)
+\ifreview
+  \usepackage[switch]{lineno}
+  % Patch amsmath environments so line numbers don't produce gaps around equations
+  \AtBeginDocument{%
+    \newcommand*\linenomathpatch[1]{%
+      \expandafter\let\csname old#1\expandafter\endcsname\csname #1\endcsname
+      \expandafter\let\csname oldend#1\expandafter\endcsname\csname end#1\endcsname
+      \renewenvironment{#1}{\linenomath\csname old#1\endcsname}%
+                           {\csname oldend#1\endcsname\endlinenomath}}%
+    \linenomathpatch{equation}%
+    \linenomathpatch{align}%
+    \linenomathpatch{alignat}%
+    \linenomathpatch{gather}%
+    \linenomathpatch{multline}%
+  }
+\fi
+
 \usepackage{includes/packages}
 \usepackage{includes/comments}
 \usepackage{includes/styles}
@@ -59,6 +77,8 @@
 \fi
 
 \maketitle
+
+\ifreview\linenumbers\fi
 
 \input{sections/abstract}
 
