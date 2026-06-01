@@ -6,4 +6,7 @@ This work introduces the \algname algorithm, which removes the need for Im2col b
 As demonstrated in the evaluation, \algname achieves significant speedups over prior work and state-of-the-art PyTorch implementations.
 When integrated into PyTorch, \algname achieves up to a 1.47$\times$ speedup in end-to-end model inference, being particularly effective in image segmentation models that utilize dilated convolution.
 This work highlights the potential to leverage existing high-performance GEMM kernels in an unconventional manner: by exploiting non-contiguous matrix inputs via its \texttt{ldx} parameters.
+\algname's performance is limited for depthwise and heavily grouped convolutions, where the number of GEMM calls grows with group count, reducing kernel efficiency.
+The algorithm is also CPU-specific: adapting it to GPUs would require addressing the kernel-launch overhead of the many small GEMM calls that \algname issues.
+The selection heuristic is simple and can be further tuned per hardware platform and BLAS library.
 Future work includes adapting the algorithm to target GPU execution.

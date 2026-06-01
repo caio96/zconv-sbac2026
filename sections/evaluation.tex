@@ -261,7 +261,7 @@ Increasing the number of groups reduces the size of the matrices in GEMM and inc
 \label{sec:libtorch}
 
 \begin{table}[t]
-    \caption{Metrics of \textbf{LibTorch / LibTorch-ZConv} (Single-thread)}
+    \caption{Metrics of \textbf{LibTorch / LibTorch-\algname} (Single-thread)}
     \label{tab:libtorch-perf}
     \small
     \setlength{\tabcolsep}{3pt} % compact columns
@@ -284,13 +284,14 @@ This figure excludes grouped convolutions for the reasons mentioned in \rsec{eva
 It also excludes layers where the output height or output width is greater than or equal to the number of input channels ($\texttt{OH} \geq \texttt{IC} \lor \texttt{OW} \geq \texttt{IC}$).
 Out of the 1384 total layers (773 speedups, 611 slowdowns), 860 layers (592 speedups, 268 slowdowns) remain after applying this additional heuristic.
 The results show overall good performance improvements even with this stronger baseline.
-\rtab{libtorch-perf} shows the comparison of memory metrics between Libtorch and LibTorch-\algname for single-threaded execution.
+\rtab{libtorch-perf} shows the comparison of memory metrics between LibTorch and LibTorch-\algname for single-threaded execution.
 
 To understand the added heuristic (excluding layers where $\texttt{OH} \geq \texttt{IC} \lor \texttt{OW} \geq \texttt{IC}$), recall that GEMM is called $\texttt{FH}\times\texttt{OW}\times\texttt{N}$ times in \algname, and the GEMM dimensions (assuming no padding) are: $M = \texttt{OH}$, $K = \texttt{FW}\times\texttt{IC}$, $N = \texttt{OC}$.
 The filtered layers have an increased number of irregular GEMMs, leading to lower performance.
 GEMM operations in linear algebra libraries are known to be less efficient on inputs with irregular sizes, such as having a small $K$ dimension~\cite{libshalom2021}, and data reuse is lost between GEMM calls, so having more calls increases the computation overhead.
 A large majority of the filtered layers are the first few convolutional layers of the vision models, where the output height is large (\eg, 112), but the number of input channels is small (\eg, 3 in an RGB image).
 One such example is Layer 1 in \rtab{libtorch-perf}, where LibTorch has better performance and better metrics in all memory levels but L2 cache compared to LibTorch-\algname.
+Large-kernel configurations (\eg, $32\times32$ patch-embedding layers in ViT models, where $\texttt{IC}=3$) fall in the same category and are similarly excluded; their speedups over Im2col are captured in \rfig{im2col-comparison-multi}.
 
 LibTorch primarily utilizes its OneDNN backend, which is used for all layers in \rtab{libtorch-perf}, except Layer 3.
 OneDNN achieves great performance results from its highly optimized and target-specific templates designed for convolution~\cite{onednn,libxsmm2016,Das2016}.
@@ -301,6 +302,53 @@ Layer 3 in \rtab{libtorch-perf} is one example.
 As a result, the memory metrics for Layer 3 follow the same trends observed in the Im2col comparison.
 Note that the LibTorch method could be modified to receive as input an image in the MKLDNN layout (using the \texttt{to\_mkldnn} helper).
 However, that would restrict the backend choice of LibTorch to OneDNN, and the results remain very similar to \rfig{libtorch-comparison-multi}.
+
+\subsubsection{Scalability}
+\label{sec:scalability}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/scalability.png}
+    \caption{Scaling speedup relative to single-core execution for all layers from \rtab{perf-layers}. Dashed line marks ideal linear scaling.}
+    \label{fig:scalability}
+\end{figure}
+
+Thread counts of 1, 2, 4, and 8 are evaluated, with cores bound via \texttt{numactl}.
+Speedup is measured relative to each method's own single-core execution time, using 10 repetitions per configuration; significance follows the same 95\% CI methodology as \rsec{standalone-conv}.
+
+\rfig{scalability} shows scaling curves from 1 to 8 cores for all layers from \rtab{perf-layers}.
+\algname and LibTorch-\algname scale comparably to LibTorch across all regular, strided, and dilated layers (Layers~1--4 and~6).
+The exception is Layer~5, Im2col and LibTorch gain virtually nothing from additional cores, but as this layer is a depthwise convolution, Im2col and Libtorch are still faster than \algname.
+
+\subsubsection{Memory Usage}
+\label{sec:mem-usage}
+
+\begin{table}[t]
+    \caption{Peak memory ratio (Baseline/\algname). Values above 1 indicate \algname uses less memory, bolded accordingly.}
+    \label{tab:memory}
+    \small
+    \setlength{\tabcolsep}{4pt}
+    \centering
+    \begin{tabular}{c|c|c|c}
+        Layer & Im2col/\algname & Yaconv/\algname & \shortstack{LibTorch/\\LibTorch-\algname} \\ \hline
+        1 & \textbf{5.26} & \textbf{1.37} & 0.79 \\
+        2 & \textbf{6.25} & \textbf{2.22} & 0.96 \\
+        3 & \textbf{1.12} & {---}          & \textbf{1.03} \\
+        4 & \textbf{1.11} & {---}          & \textbf{1.04} \\
+        5 & \textbf{1.49} & {---}          & 0.99 \\
+        6 & \textbf{2.00} & {---}          & \textbf{1.32} \\
+    \end{tabular}
+\end{table}
+
+Peak memory is measured as maximum resident set size (RSS) via \texttt{/usr/bin/time -v}, using the same fixed 100-iteration build as the Perf measurements in \rsec{standalone-conv}, run single-threaded on the six layers from \rtab{perf-layers}.
+\rtab{memory} reports the Baseline/\algname peak memory ratio; values above 1 indicate that \algname uses less memory.
+Measurements cover the full binary execution rather than the convolution call alone.
+
+Compared to Im2col, \algname reduces memory by up to 6$\times$ by eliminating the Im2col buffer; savings are smaller for Layers~3 and~4, where small spatial dimensions or stride keep the buffer small.
+Compared to Yaconv, reductions occur because Yaconv allocates a persistent packing buffer, whereas \algname delegates packing to the GEMM library.
+The LibTorch comparison is close for most layers because LibTorch's OneDNN backend uses direct convolution, which also avoids explicit buffers.
+Layer~6 shows a reduction because LibTorch falls back to its Im2col backend for dilated convolution.
+However, note that because these measurements cover the full binary execution, Libtorch-\algname includes a one-time weight layout conversion in the benchmark binary (\ie, from \texttt{OC,IC,FH,FW} to \algname's \texttt{FH,FW,IC,OC} that is not part of the convolution call itself.
 
 \subsection{End-to-end Models}
 \label{sec:end-to-end}

@@ -32,12 +32,12 @@ Together, these algorithms cover the most convolution configurations.
 
 Performance evaluation with the large dataset introduced by \citet{convbench}, which includes over 9000 unique convolutional layers from more than 1200 vision models, reveals that \algname outperforms both the prior work and the state-of-the-art convolution implementations used by PyTorch.
 This large-scale evaluation enabled the design of simple heuristics based on convolution parameters to decide when to utilize \algname over alternative methods to maximize model performance.
-Integrating \algname into PyTorch's hybrid convolution implementation for end-to-end model evaluation results in inference speedups of up to 1.8$\times$ over unmodified PyTorch.
+Integrating \algname into PyTorch's hybrid convolution implementation for end-to-end model evaluation results in inference speedups of up to 1.47$\times$ over unmodified PyTorch.
 
 In summary, this work makes the following contributions: 
 \begin{enumerate}[label=(\roman*),noitemsep,topsep=0pt] 
     \item \algname, a novel GEMM-based convolution algorithm that leverages the \emph{lda}, \emph{ldb}, and \emph{ldc} parameters of the BLAS API to eliminate the Im2col transformation and use zero copies (\rsec{zconv-alg}).
     \item An extensive evaluation of \algname against prior and state-of-the-art methods in standalone layers (\rsec{standalone-conv})
     \item An evaluation of end-to-end vision models where \algname was integrated into PyTorch's hybrid convolution implementation (\rsec{end-to-end}).
-    \item A publicly available artifact containing all implementations and evaluation scripts.\footnote{Will be packaged upon publication, but the code was submitted as supplementary material.}
+    \item A publicly available artifact containing all implementations and evaluation scripts.\footnote{Will be packaged upon publication.}
 \end{enumerate}
