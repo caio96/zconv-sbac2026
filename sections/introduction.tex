@@ -37,7 +37,7 @@ Integrating \algname into PyTorch's hybrid convolution implementation for end-to
 In summary, this work makes the following contributions: 
 \begin{enumerate}[label=(\roman*),noitemsep,topsep=0pt] 
     \item \algname, a novel GEMM-based convolution algorithm that leverages the \emph{lda}, \emph{ldb}, and \emph{ldc} parameters of the BLAS API to eliminate the Im2col transformation and use zero copies (\rsec{zconv-alg}).
-    \item An extensive evaluation of \algname against prior and state-of-the-art methods in standalone layers (\rsec{standalone-conv})
+    \item An extensive evaluation of \algname against prior and state-of-the-art methods in standalone layers (\rsec{standalone-conv}).
     \item An evaluation of end-to-end vision models where \algname was integrated into PyTorch's hybrid convolution implementation (\rsec{end-to-end}).
     \item A publicly available artifact containing all implementations and evaluation scripts.\footnote{Will be packaged upon publication.}
 \end{enumerate}

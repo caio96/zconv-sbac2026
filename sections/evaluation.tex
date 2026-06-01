@@ -101,7 +101,7 @@ Before measuring performance, the correctness of these methods was verified usin
 
 The experiment runs convolutions with a custom benchmark based on Google Benchmark~\cite{googlebench} and ConvBench~\cite{convbench}. 
 Methods run layers in random order; each configuration runs at least ten times (or until 0.5 seconds) with a 0.1 second warm-up, and the mean over five or more repeats is reported.
-Additional repetitions are done when 95\% confidence intervals (CI) overlaps between two compared points and differences exceeded 1\%.
+Additional repetitions are done when 95\% confidence intervals (CI) overlap between two compared points and differences exceeded 1\%.
 If the CI overlaps and the difference is less than 1\%, the comparison is considered insignificant.
 
 In the following comparison graphs (\rfig{single-conv-comparison}), the bars represent the speedup of one method over another across different convolution layers. 
@@ -254,7 +254,7 @@ The slowdown cases in Im2col comparisons can be mostly attributed to strided lay
 In these layers, the Im2col transformation copies fewer or no redundant elements, reducing its overhead.
 Layer 4 in \rtab{im2col-perf} is one such example, where Im2col has a reduced number of misses in all cache levels compared to \algname.
 Layer 5 is another disadvantage case for \algname, because it is a grouped (depthwise) layer that runs in a single thread.
-Increasing the number of groups reduces the size of the matrices in GEMM and increases the GEMM calls, therefore reducing the GEMM effectiveness.
+Increasing the number of groups reduces the size of the matrices in GEMM and increases the number of GEMM calls, thereby reducing kernel efficiency.
 \algname achieves better performance in the remaining cases by executing with no copies, redundant or otherwise, and still leveraging the highly optimized GEMM kernel, as evidenced by the improved memory hierarchy metrics for the remaining layers.
 
 \subsubsection{LibTorch}
@@ -294,7 +294,7 @@ One such example is Layer 1 in \rtab{libtorch-perf}, where LibTorch has better p
 Large-kernel configurations (\eg, $32\times32$ patch-embedding layers in ViT models, where $\texttt{IC}=3$) fall in the same category and are similarly excluded; their speedups over Im2col are captured in \rfig{im2col-comparison-multi}.
 
 LibTorch primarily utilizes its OneDNN backend, which is used for all layers in \rtab{libtorch-perf}, except Layer 3.
-OneDNN achieves great performance results from its highly optimized and target-specific templates designed for convolution~\cite{onednn,libxsmm2016,Das2016}.
+OneDNN achieves great performance results from its highly optimized and target-specific templates designed for convolution~\cite{onednn,libxsmm2016}.
 \algname outperforms LibTorch's OneDNN backend in Layers 4 and 6 of \rtab{libtorch-perf}.
 In Layer 6, LibTorch-\algname shows significant improvements over all memory metrics, largely due to its efficient handling of the big padding parameters in this layer, where padding elements (zeros) are never instantiated in temporary buffers.
 LibTorch also employs its native Im2col-based backend for some convolution configurations.
@@ -318,13 +318,13 @@ Speedup is measured relative to each method's own single-core execution time, us
 
 \rfig{scalability} shows scaling curves from 1 to 8 cores for all layers from \rtab{perf-layers}.
 \algname and LibTorch-\algname scale comparably to LibTorch across all regular, strided, and dilated layers (Layers~1--4 and~6).
-The exception is Layer~5, Im2col and LibTorch gain virtually nothing from additional cores, but as this layer is a depthwise convolution, Im2col and Libtorch are still faster than \algname.
+The exception is Layer~5, Im2col and LibTorch gain virtually nothing from additional cores, but as this layer is a depthwise convolution, Im2col and LibTorch are still faster than \algname.
 
 \subsubsection{Memory Usage}
 \label{sec:mem-usage}
 
 \begin{table}[t]
-    \caption{Peak memory ratio (Baseline/\algname). Values above 1 indicate \algname uses less memory, bolded accordingly.}
+    \caption{Peak memory ratio (Baseline/\algname). Values above 1 indicate \algname uses less memory, bolded accordingly. Yaconv entries marked {---} are omitted because Yaconv produces incorrect results for those layers (3--4) or does not support the configuration (5--6).}
     \label{tab:memory}
     \small
     \setlength{\tabcolsep}{4pt}
@@ -345,10 +345,10 @@ Peak memory is measured as maximum resident set size (RSS) via \texttt{/usr/bin/
 Measurements cover the full binary execution rather than the convolution call alone.
 
 Compared to Im2col, \algname reduces memory by up to 6$\times$ by eliminating the Im2col buffer; savings are smaller for Layers~3 and~4, where small spatial dimensions or stride keep the buffer small.
-Compared to Yaconv, reductions occur because Yaconv allocates a persistent packing buffer, whereas \algname delegates packing to the GEMM library.
+Compared to Yaconv, memory reductions occur because Yaconv allocates a persistent packing buffer, whereas \algname delegates packing to the GEMM library.
 The LibTorch comparison is close for most layers because LibTorch's OneDNN backend uses direct convolution, which also avoids explicit buffers.
 Layer~6 shows a reduction because LibTorch falls back to its Im2col backend for dilated convolution.
-However, note that because these measurements cover the full binary execution, Libtorch-\algname includes a one-time weight layout conversion in the benchmark binary (\ie, from \texttt{OC,IC,FH,FW} to \algname's \texttt{FH,FW,IC,OC} that is not part of the convolution call itself.
+However, note that because these measurements cover the full binary execution, LibTorch-\algname includes a one-time weight layout conversion in the benchmark binary (\ie, from \texttt{OC,IC,FH,FW} to \algname's \texttt{FH,FW,IC,OC}), which is not part of the convolution call itself.
 
 \subsection{End-to-end Models}
 \label{sec:end-to-end}

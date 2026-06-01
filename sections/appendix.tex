@@ -31,9 +31,9 @@ $output[\texttt{N},\texttt{OH},\texttt{OW},\texttt{OC}]$ & $bias[\texttt{OC}]$
 
     \For{$fh \gets 0$ to $\texttt{FH}-1$}
       \For{$gr \gets 0$ to $\texttt{GR}-1$} \label{alg:zconv-ext:gr}
-      \State $startH \gets fh \cdot \texttt{DH},\;\; endW \gets startH + \texttt{OH} \cdot \texttt{SH}$
-      \State $startW \gets ow \cdot \texttt{SW},\;\; endH \gets startW + \texttt{FH} \cdot \texttt{DW} $
-        \State $A \gets image[n,startH : endH : \texttt{SH}, startW : endW : \texttt{DW},gr\cdot \texttt{IC}_{GR} : (gr+1)\cdot \texttt{IC}_{GR}]$
+      \State $startH \gets fh \cdot \texttt{DH},\;\; endH \gets startH + \texttt{OH} \cdot \texttt{SH}$
+      \State $startW \gets ow \cdot \texttt{SW},\;\; endW \gets startW + \texttt{FW} \cdot \texttt{DW}$
+        \State $A \gets image[n,startH : endH : \texttt{SH}, startW : endW : \texttt{DW},gr\cdot \texttt{IC}_{gr} : (gr+1)\cdot \texttt{IC}_{gr}]$
         \State $B \gets \text{addr}(filter[fh,0,0,gr \cdot \texttt{OC}_{gr}])$ \label{alg:zconv-ext:b}
         \State $C \gets \text{addr}(output[n,0,ow,gr \cdot \texttt{OC}_{gr}])$ \label{alg:zconv-ext:c}
         \State $layout \gets rowMajor$
@@ -62,7 +62,7 @@ As a result, the base pointers to matrices $B$ and $C$ include an offset to the 
 \subsection{DeepLabV3+ Model Evaluation}
 \label{sec:deeplabv3plus}
 
-The first three models in \ref{fig:torch-multi} stand out for obtaining the highest speedups with \algname.
+The first three models in Figure~\ref{fig:torch-multi} stand out for obtaining the highest speedups with \algname.
 These bars correspond to the following models: \emph{deeplabv3\_mobilenet\_v3\_large}, \emph{deeplabv3\_resnet50}, and \emph{deeplabv3\_resnet101}.
 DeepLabV3 is a segmentation model architecture that utilizes dilated convolution and supports distinct backbones, such as \emph{resnet} and \emph{mobilenet}~\cite{Chen2017}.
 Dilated convolutional layers typically have longer execution times due to their poor memory access patterns, as the elements within an input patch are non-contiguous in memory.
@@ -98,7 +98,7 @@ Despite this additional transformation overhead, \algname improves execution tim
 
 \section{Artifact}
 
-Upon acceptance, the authors will packaged the following components into an archival format and make it publicly available with a DOI:
+Upon acceptance, the authors will package the following components into an archival format and make it publicly available with a DOI:
 \begin{enumerate*}[label=(\arabic*)]
   \item The figures and tables from the paper, and the raw data used to generate them.
   \item Source code for the \algname implementations (standalone and PyTorch integration).
