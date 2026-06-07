@@ -89,7 +89,7 @@ Before measuring performance, the correctness of these methods was verified usin
     \item \textbf{Im2col}, a C implementation based on the Caffe framework that transforms convolution into GEMM operations through the Im2col data transformation~\cite{chellapilla2006, caffe2014}.
     Parallelism is handled by the GEMM library.
     
-    \item \textbf{\algname}, a C implementation of \algfullname that leverages OpenMP for parallelism. It also utilizes OneMKL's JIT optimization for small GEMM sizes, which is handled automatically by the library.
+    \item \textbf{\algname}, a C implementation of \algfullname that leverages OpenMP for parallelism. It also utilizes OneMKL's just-in-time (JIT) optimization for small GEMM sizes, which is handled automatically by the library.
 
     \item \textbf{LibTorch}, PyTorch's C++ API of \emph{Conv2D}, which is used when running models with convolutional layers.
     It may call multiple convolution backends, including OneDNN.
@@ -291,7 +291,7 @@ The filtered layers have an increased number of irregular GEMMs, leading to lowe
 GEMM operations in linear algebra libraries are known to be less efficient on inputs with irregular sizes, such as having a small $K$ dimension~\cite{libshalom2021}, and data reuse is lost between GEMM calls, so having more calls increases the computation overhead.
 A large majority of the filtered layers are the first few convolutional layers of the vision models, where the output height is large (\eg, 112), but the number of input channels is small (\eg, 3 in an RGB image).
 One such example is Layer 1 in \rtab{libtorch-perf}, where LibTorch has better performance and better metrics in all memory levels but L2 cache compared to LibTorch-\algname.
-Large-kernel configurations (\eg, $32\times32$ patch-embedding layers in ViT models, where $\texttt{IC}=3$) fall in the same category and are similarly excluded; their speedups over Im2col are captured in \rfig{im2col-comparison-multi}.
+Large-kernel configurations (\eg, $32\times32$ patch-embedding layers in Vision Transformer (ViT) models, where $\texttt{IC}=3$) fall in the same category and are similarly excluded; their speedups over Im2col are captured in \rfig{im2col-comparison-multi}.
 
 LibTorch primarily utilizes its OneDNN backend, which is used for all layers in \rtab{libtorch-perf}, except Layer 3.
 OneDNN achieves great performance results from its highly optimized and target-specific templates designed for convolution~\cite{onednn,libxsmm2016}.

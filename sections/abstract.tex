@@ -1,6 +1,6 @@
 \begin{abstract}
 
-This paper presents \algname, a new GEMM-based convolution formulation for CPU architectures that eliminates data copies by exploiting the dimension and stride parameters of GEMM library calls. 
+This paper presents \algname, a new general matrix-matrix multiplication (GEMM)-based convolution formulation for central processing unit (CPU) architectures that eliminates data copies by exploiting the dimension and stride parameters of GEMM library calls. 
 Unlike prior approaches, which reduce convolution to GEMM through Image-to-Column (Im2col) transformations or smaller data copies, this formulation achieves zero-copy execution. 
 An extended version with minimal memory overhead further supports dilated and grouped convolutions, covering most convolution configurations.
 Extensive evaluation across a large dataset of convolutional layers demonstrates performance that is competitive with state-of-the-art implementations and superior to other published methods.

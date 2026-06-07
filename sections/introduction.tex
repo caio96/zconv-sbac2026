@@ -1,7 +1,7 @@
 \section{Introduction}
 
 Convolutional layers (abbreviated to convolution in this paper) are the core component in convolutional neural networks (CNNs) and account for the majority of CNN execution time~\cite{LeCun1989}.
-No single method is optimal for all convolution layers, as hybrid strategies in DL frameworks show.
+No single method is optimal for all convolution layers, as hybrid strategies in deep learning (DL) frameworks show.
 Each approach trades off performance, generality, and portability.
 This complexity comes from:
 \begin{enumerate*}[label=(\roman*)] 
@@ -15,7 +15,7 @@ The recent inclusion of matrix multiplication units in CPUs further indicates th
 
 Direct and General matrix-matrix multiplication (GEMM)-based convolution are the two most widely used implementations, both supported by state-of-the-art DL frameworks such as PyTorch~\cite{pytorch2024} and ONNX Runtime~\cite{onnxruntime}.
 GEMM-based methods reduce convolution to matrix multiplication, traditionally using the Im2col transformation to leverage the extensive engineering efforts behind optimized GEMM kernels~\cite{chellapilla2006}.
-These kernels are widely available across hardware platforms through BLAS libraries~\cite{blis2015,openblas2013,Goto2008}.
+These kernels are widely available across hardware platforms through Basic Linear Algebra Subprograms (BLAS) libraries~\cite{blis2015,openblas2013,Goto2008}.
 
 The primary drawbacks of GEMM-based convolution are the additional memory overhead and transformation cost of Im2col.
 Recent research efforts partially reduce Im2col's overhead, but only support a subset of convolution configurations~\cite{Cho2017,Ofir2022,Anderson2020,Korostelev2023}.
