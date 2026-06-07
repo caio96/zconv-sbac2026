@@ -318,7 +318,7 @@ Speedup is measured relative to each method's own single-core execution time, us
 
 \rfig{scalability} shows scaling curves from 1 to 8 cores for all layers from \rtab{perf-layers}.
 \algname and LibTorch-\algname scale comparably to LibTorch across all regular, strided, and dilated layers (Layers~1--4 and~6).
-The exception is Layer~5, Im2col and LibTorch gain virtually nothing from additional cores, but as this layer is a depthwise convolution, Im2col and LibTorch are still faster than \algname.
+The exception is Layer~5 (depthwise convolution): although Im2col and LibTorch gain virtually nothing from additional cores, their single-thread performance advantage is large enough that they remain faster than \algname.
 
 \subsubsection{Memory Usage}
 \label{sec:mem-usage}
