@@ -122,7 +122,7 @@ This is because pointwise convolutions can be computed directly as GEMM without 
 \algname is designed to extract multiple smaller GEMMs within convolutions that require the Im2col data layout transformation.
 Direct GEMM, when applicable, is a simpler and more efficient approach.
 
-Furthermore, six representative convolution layers, described in \rtab{perf-layers}, are used to illustrate the memory hierarchy effects of the compared methods.
+Furthermore, six representative convolution layers, described in \rtab{perf-layers}, are used to evaluate thread scalability (\rsec{scalability}), peak memory usage (\rsec{mem-usage}), and memory hierarchy effects of the compared methods.
 Layers 1 to 3 are more conventional convolution configurations with decreasing input height and width.
 Layer 4 is a strided convolution that does not overlap image patches.
 Layer 5 is a grouped (depthwise) convolution, and Layer 6 represents a dilated convolution.
@@ -313,6 +313,7 @@ However, that would restrict the backend choice of LibTorch to OneDNN, and the r
     \label{fig:scalability}
 \end{figure}
 
+This experiment evaluates how each method scales with thread count, using the six representative layers from \rtab{perf-layers}.
 Thread counts of 1, 2, 4, and 8 are evaluated, with cores bound via \texttt{numactl}.
 Speedup is measured relative to each method's own single-core execution time, using 10 repetitions per configuration; significance follows the same 95\% CI methodology as \rsec{standalone-conv}.
 
@@ -340,7 +341,8 @@ The exception is Layer~5 (depthwise convolution): although Im2col and LibTorch g
     \end{tabular}
 \end{table}
 
-Peak memory is measured as maximum resident set size (RSS) via \texttt{/usr/bin/time -v}, using the same fixed 100-iteration build as the Perf measurements in \rsec{standalone-conv}, run single-threaded on the six layers from \rtab{perf-layers}.
+This experiment compares peak memory consumption across methods for the six representative layers from \rtab{perf-layers}.
+Peak memory is measured as maximum resident set size (RSS) via \texttt{/usr/bin/time -v}, using the same fixed 100-iteration build as the Perf measurements in \rsec{standalone-conv}, run single-threaded.
 \rtab{memory} reports the Baseline/\algname peak memory ratio; values above 1 indicate that \algname uses less memory.
 Measurements cover the full binary execution rather than the convolution call alone.
 
