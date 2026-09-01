@@ -371,12 +371,13 @@ Each model is executed five times for warm-up, followed by fifty timed runs for 
 The execution time of each non-warm-up run is recorded. 
 This entire process is repeated five times or more to ensure consistent results.
 Additional repetitions follow the same methodology as in \rsec{standalone-conv} regarding confidence intervals and insignificant differences.
-All models listed in \rtab{models} are run in inference mode using their respective default input sizes. 
+Models listed in \rtab{models} are run in inference mode using their respective default input sizes.
+Models that contain no convolution layer selected by the heuristic described in \rsec{pytorch-integration} are omitted, because \algname would not be used for any of their layers.
 All tests are executed with a batch size of 1.
 
 The graphs in \rfig{end-to-end-comparison} follow a similar format to those in \rsec{standalone-conv}.
 However, in this case, the y-axis is in a linear scale, with the x-axis label indicating the total number of models shown.
-All models are included in the graphs except when the execution time difference between the two methods is insignificant, following the same methodology as in the previous section.
+All of these models are included in the graphs except when the execution time difference between the two methods is insignificant, following the same methodology as in the previous section.
 
 \begin{figure}[t]
     \centering
