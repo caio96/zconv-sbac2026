@@ -18,7 +18,7 @@ Each iteration of these loops computes a distinct output tile of shape \texttt{[
 Lines~\ref{alg:zconv:initialize-start}-\ref{alg:zconv:initialize-end} initialize the output tile to the corresponding bias values (or to zero if there is no bias).
 The only remaining loop, at Line~\ref{alg:zconv:fh}, iterates over the filter height (\texttt{FH}), setting the appropriate GEMM parameters and calling GEMM.
 Each iteration over the filter height computes a partial result for the \texttt{[OH,1,OC]} output tile.
-GEMM is called in row-major layout, with input matrices used as-is (\ie, no transposition), and with scalar multipliers \texttt{alpha} and \texttt{beta} both set to one.
+GEMM is called in row-major layout, with input matrices used as-is (\ie, no transposition), and with scalar multipliers \emph{alpha} and \emph{beta} both set to one.
 Line~\ref{alg:zconv:dims} describes the GEMM dimensions \emph{m}, \emph{n}, and \emph{k} typically used in \algname.
 An example of these matrix tiles within the convolution tensors is highlighted in \rfig{tensors}.
 Overall, GEMM is invoked $\texttt{N}\times\texttt{OW}\times\texttt{FH}$ times.
@@ -27,7 +27,7 @@ Padding is omitted from \ralg{zconv} for readability.
 Convolution with padding is handled in \algname by skipping accesses to padding elements, resulting in GEMM calls with smaller matrices at the image edges.
 Padding elements can be skipped and never instantiated in temporary buffers because the padding mode is fixed to zero-padding in \algname.
 This is the default mode in PyTorch.
-A full implementation with padding handling will be provided in the artifact.
+A full implementation with padding handling is provided in the artifact~\cite{zconvartifact}.
 
 \begin{algorithm}[t]
 \caption{\algname (padding omitted for brevity).}
@@ -40,18 +40,18 @@ A full implementation with padding handling will be provided in the artifact.
   $output[\texttt{N},\texttt{OH},\texttt{OW},\texttt{OC}]$, & $bias[\texttt{OC}]$
 \end{tabular}
 
-\For{$n \gets 0$ to $\texttt{N}-1$} \Comment{Parallel loop}
+\For{$bt \gets 0$ to $\texttt{N}-1$} \Comment{Parallel loop}
   \For{$ow \gets 0$ to $\texttt{OW}-1$} \Comment{Parallel loop} \label{alg:zconv:ow}
     \For{$oh \gets 0$ to $\texttt{OH}-1$}   \label{alg:zconv:initialize-start}
       \For{$oc \gets 0$ to $\texttt{OC}-1$}
-        \State $output[n,oh,ow,oc] \gets bias[oc]$
+        \State $output[bt,oh,ow,oc] \gets bias[oc]$
       \EndFor
     \EndFor  \label{alg:zconv:initialize-end}
 
     \For{$fh \gets 0$ to $\texttt{FH}-1$}  \label{alg:zconv:fh}
-      \State $A \gets \text{addr}(image[n, fh, ow \cdot \texttt{SW}, 0])$ \label{alg:zconv:params-start}
+      \State $A \gets \text{addr}(image[bt, fh, ow \cdot \texttt{SW}, 0])$ \label{alg:zconv:params-start}
       \State $B \gets \text{addr}(filter[fh,0,0,0])$
-      \State $C \gets \text{addr}(output[n,0,ow,0])$
+      \State $C \gets \text{addr}(output[bt,0,ow,0])$
       \State $layout \gets rowMajor$
       \State $transa \gets noTrans,\;\; transb \gets noTrans$
       \State $m \gets \texttt{OH},\;\; k \gets \texttt{FW} \cdot \texttt{IC},\;\; n \gets \texttt{OC}$ \label{alg:zconv:dims}
@@ -64,7 +64,7 @@ A full implementation with padding handling will be provided in the artifact.
 \end{algorithmic}
 \end{algorithm}
 
-\rfig{zconv-simple} illustrates the example of the \algname algorithm with the convolution parameters detailed in its caption.
+\rfig{zconv-simple} illustrates an example of the \algname algorithm with the convolution parameters detailed in its caption.
 The figure expands the iterations over output width and filter height, corresponding to Lines~\ref{alg:zconv:ow} and \ref{alg:zconv:fh} of \ralg{zconv}.
 The highlighted tiles in the image and filter represent the elements accessed during each iteration, which serve as inputs to the GEMM operation shown on the right side of the figure.
 This GEMM accumulates its result into the corresponding tile of the output.
@@ -87,12 +87,11 @@ The horizontal iterations in the image follow the width stride.
 
 \ralg{zconv} sets the GEMM parameters in Lines~\ref{alg:zconv:params-start}-\ref{alg:zconv:params-end}.
 Matrix $A$ points to the beginning of an \texttt{[OH,FW$\times$IC]} tile of the image tensor.
-Matrix $A$ is a non-contiguous tile, where each row contains $\texttt{FW}\times\texttt{IC}$ contiguous elements, and the \texttt{lda} parameter specifies the stride between rows.
+Matrix $A$ is a non-contiguous tile, where each row contains $\texttt{FW}\times\texttt{IC}$ contiguous elements, and the leading dimension \emph{lda} specifies the stride between rows.
 For example, in \rfig{zconv-simple}, the highlighted tiles from the image tensor are obtained with: $m\gets3$, $k\gets2$, and $lda\gets4$.
-The value of $lda$ represents the stride in memory between the rows of the image tiles.
 The algorithm naturally produces a matrix $C$ of shape \texttt{[OH,OC]}.
 While this matrix could be stored as a contiguous tile in the output tensor, it would cause the output to have a transposed layout where the \texttt{OH} and \texttt{OW} dimensions are swapped.
-Matrix $C$ is stored as a non-contiguous tile (using the $ldc$ parameter) to avoid this transposed layout.
+Matrix $C$ is stored as a non-contiguous tile (using the leading dimension \emph{ldc}) to avoid this transposed layout.
 In contrast, matrix $B$ is a contiguous tile from the filter tensor.
 Although the filter tile in \rfig{zconv-simple} looks transposed, matrix $B$ does not require transposition because a single row and a single column both appear as contiguous arrays in memory.
 This remains true for the algorithm when considering the additional filter dimensions.

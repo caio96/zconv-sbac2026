@@ -13,7 +13,7 @@ While Graphics Processing Units (GPUs) enable training and throughput-oriented e
 This work targets two-dimensional CNN inference on CPUs.
 The recent inclusion of matrix multiplication units in CPUs further indicates the relevance of CPU inference; however, these accelerator units also complicate code generation and optimization~\cite{Carvalho2022,tpu2017,nvidia2021}.
 
-Direct and General matrix-matrix multiplication (GEMM)-based convolution are the two most widely used implementations, both supported by state-of-the-art DL frameworks such as PyTorch~\cite{pytorch2024} and ONNX Runtime~\cite{onnxruntime}.
+Direct and General matrix-matrix multiplication (GEMM)-based convolutions are the two most widely used implementations, both supported by state-of-the-art DL frameworks such as PyTorch~\cite{pytorch2024} and ONNX Runtime~\cite{onnxruntime}.
 GEMM-based methods reduce convolution to matrix multiplication, traditionally using the Im2col transformation to leverage the extensive engineering efforts behind optimized GEMM kernels~\cite{chellapilla2006}.
 These kernels are widely available across hardware platforms through Basic Linear Algebra Subprograms (BLAS) libraries~\cite{blis2015,openblas2013,Goto2008}.
 
@@ -24,11 +24,11 @@ As a result, such methods lack portability across different BLAS libraries and h
 
 This work introduces \algfullname (\algname), a novel GEMM-based convolution algorithm that fully eliminates the data copies required by Im2col-based approaches, while relying on unmodified GEMM kernels.
 \algname is a simple, high-performance, portable, and fully parallelizable algorithm that supports a wide range of convolution configurations.
-Its core insight is that convolution can be decomposed into multiple GEMM calls that directly access the image tensor by exploiting the stride parameters (\emph{lda}, \emph{ldb}, and \emph{ldc}) accepted by BLAS libraries.
+Its core insight is that convolution can be decomposed into multiple GEMM calls that directly access the image tensor by exploiting the leading dimension parameters (\emph{lda}, \emph{ldb}, and \emph{ldc}) accepted by BLAS libraries.
 By utilizing unmodified GEMM kernels and using conventional input tensor layouts, \algname can leverage multiple BLAS libraries and is easily integrated into existing deep learning frameworks.
 \algname's two outermost loops have no dependencies between iterations, and thus can be trivially parallelized.
 Additionally, a low-memory-overhead extension of \algname is proposed to support dilated and grouped convolutions.
-Together, these algorithms cover the most convolution configurations.
+Together, these algorithms cover most convolution configurations.
 
 Performance evaluation with the large dataset introduced by \citet{convbench}, which includes over 9000 unique convolutional layers from more than 1200 vision models, reveals that \algname outperforms both the prior work and the state-of-the-art convolution implementations used by PyTorch.
 This large-scale evaluation enabled the design of simple heuristics based on convolution parameters to decide when to utilize \algname over alternative methods to maximize model performance.
@@ -37,7 +37,7 @@ Integrating \algname into PyTorch's hybrid convolution implementation for end-to
 In summary, this work makes the following contributions: 
 \begin{enumerate}[label=(\roman*),noitemsep,topsep=0pt] 
     \item \algname, a novel GEMM-based convolution algorithm that leverages the \emph{lda}, \emph{ldb}, and \emph{ldc} parameters of the BLAS API to eliminate the Im2col transformation and use zero copies (\rsec{zconv-alg}).
-    \item An extensive evaluation of \algname against prior and state-of-the-art methods in standalone layers (\rsec{standalone-conv}).
+    \item An extensive evaluation of \algname against prior and state-of-the-art methods on standalone layers (\rsec{standalone-conv}).
     \item An evaluation of end-to-end vision models where \algname was integrated into PyTorch's hybrid convolution implementation (\rsec{end-to-end}).
-    \item A publicly available artifact containing all implementations and evaluation scripts.\footnote{Will be packaged upon publication.}
+    \item A publicly available artifact containing all implementations, evaluation scripts, and results~\cite{zconvartifact}.
 \end{enumerate}

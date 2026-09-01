@@ -6,7 +6,7 @@ As in \ralg{zconv}, padding is omitted for readability.
 The following changes are introduced in the extended version to support dilated and grouped convolution: 
 \begin{enumerate*}[label=(\roman*)] 
     \item An extra buffer of shape \texttt{[OH,FW$\times$IC/GR]} is allocated at Line~\ref{alg:zconv-ext:alloc}.
-    \item A new loop over the number of groups is added in Line~\ref{alg:zconv-ext:gr}. 
+    \item A new loop over the number of groups is added at Line~\ref{alg:zconv-ext:gr}.
     \item A copy operation from the image tensor to the extra buffer is added before the GEMM call. 
     This copy handles stride, groups, and dilation, resulting in a contiguous matrix $A$.
     \item The GEMM parameters are adjusted for the extra buffer and to handle groups in matrices $B$ and $C$.
@@ -24,7 +24,7 @@ $image[\texttt{N},\texttt{IH},\texttt{IW},\texttt{IC}]$ & $filter[\texttt{FH},\t
 $output[\texttt{N},\texttt{OH},\texttt{OW},\texttt{OC}]$ & $bias[\texttt{OC}]$
 \end{tabular}
 
-\For{$n \gets 0$ to $\texttt{N}-1$} \Comment{Parallel loop}
+\For{$bt \gets 0$ to $\texttt{N}-1$} \Comment{Parallel loop}
   \For{$ow \gets 0$ to $\texttt{OW}-1$} \Comment{Parallel loop}
     \State Initialize output tile (same as \ralg{zconv})
     \State Allocate $A$ with size $\texttt{OH} \cdot \texttt{FW} \cdot \texttt{IC}_{gr}$ \label{alg:zconv-ext:alloc}
@@ -33,9 +33,9 @@ $output[\texttt{N},\texttt{OH},\texttt{OW},\texttt{OC}]$ & $bias[\texttt{OC}]$
       \For{$gr \gets 0$ to $\texttt{GR}-1$} \label{alg:zconv-ext:gr}
       \State $startH \gets fh \cdot \texttt{DH},\;\; endH \gets startH + \texttt{OH} \cdot \texttt{SH}$
       \State $startW \gets ow \cdot \texttt{SW},\;\; endW \gets startW + \texttt{FW} \cdot \texttt{DW}$
-        \State $A \gets image[n,startH : endH : \texttt{SH}, startW : endW : \texttt{DW},gr\cdot \texttt{IC}_{gr} : (gr+1)\cdot \texttt{IC}_{gr}]$
+        \State $A \gets \text{copy}(image[bt,startH : endH : \texttt{SH}, startW : endW : \texttt{DW},gr\cdot \texttt{IC}_{gr} : (gr+1)\cdot \texttt{IC}_{gr}])$
         \State $B \gets \text{addr}(filter[fh,0,0,gr \cdot \texttt{OC}_{gr}])$ \label{alg:zconv-ext:b}
-        \State $C \gets \text{addr}(output[n,0,ow,gr \cdot \texttt{OC}_{gr}])$ \label{alg:zconv-ext:c}
+        \State $C \gets \text{addr}(output[bt,0,ow,gr \cdot \texttt{OC}_{gr}])$ \label{alg:zconv-ext:c}
         \State $layout \gets rowMajor$
         \State $transa \gets noTrans,\;\; transb \gets noTrans$
         \State $m \gets \texttt{OH},\;\; k \gets \texttt{FW} \cdot \texttt{IC}_{gr},\;\; n \gets \texttt{OC}_{gr}$
@@ -55,14 +55,13 @@ Dilation and grouping introduce irregular memory access patterns that break this
 Dilation in the width dimension inserts offsets between the \texttt{FW} elements of a row, while grouping reduces the number of input channels accessed, such that only $\texttt{IC}/\texttt{GR}$ elements are accessed per row instead of the full \texttt{IC} dimension.
 
 Unlike in the original algorithm, matrix $B$ points to a non-contiguous tile of the filter tensor in the grouped convolution case.
-When the number of groups is greater than one, each GEMM call processes only a subset of the output channels dimension (\texttt{OC}).
-Specifically, \texttt{OC/GR} per group, rather than the full output channel dimension.
-As a result, the base pointers to matrices $B$ and $C$ include an offset to the starting position of the current group, as shown in Lines~\ref{alg:zconv-ext:b} and~\ref{alg:zconv-ext:c}, and the corresponding row offsets of these matrices are handled through the leading dimension parameters \texttt{ldb} and \texttt{ldc}.
+When the number of groups is greater than one, each GEMM call processes only a subset of the output channel dimension (\texttt{OC}), specifically \texttt{OC/GR} per group, rather than the full dimension.
+As a result, the base pointers to matrices $B$ and $C$ include an offset to the starting position of the current group, as shown in Lines~\ref{alg:zconv-ext:b} and~\ref{alg:zconv-ext:c}, and the corresponding row offsets of these matrices are handled through the leading dimension parameters \emph{ldb} and \emph{ldc}.
 
 \subsection{DeepLabV3+ Model Evaluation}
 \label{sec:deeplabv3plus}
 
-The first three models in Figure~\ref{fig:torch-multi} stand out for obtaining the highest speedups with \algname.
+The first three models in \rfig{torch-multi} stand out for obtaining the highest speedups with \algname.
 These bars correspond to the following models: \emph{deeplabv3\_mobilenet\_v3\_large}, \emph{deeplabv3\_resnet50}, and \emph{deeplabv3\_resnet101}.
 DeepLabV3 is a segmentation model architecture that utilizes dilated convolution and supports distinct backbones, such as \emph{resnet} and \emph{mobilenet}~\cite{Chen2017}.
 Dilated convolutional layers typically have longer execution times due to their poor memory access patterns, as the elements within an input patch are non-contiguous in memory.
@@ -75,9 +74,9 @@ Combined with its efficient padding handling, as discussed in \rsec{libtorch}, \
 \rtab{deeplabv3plus} extends the evaluation to the more recent \emph{DeepLabV3+} models~\cite{Chen2018}.
 While Timm and TorchVision do not provide these models, their PyTorch implementations are available on GitHub~\cite{FangGithub}.
 Unlike the previous end-to-end model evaluations, these models are evaluated following the usage of the repository that implements them.
-Thus, each model is run on a validation set of the Pascal VOC 2012 dataset, which contains 1449 images~\cite{Everingham10}.
+Thus, each model is run on the validation set of the Pascal VOC 2012 dataset, which contains 1449 images~\cite{Everingham10}.
 \rtab{deeplabv3plus} presents details on the evaluated \emph{DeepLabV3+} model backbones, the total inference time for multithreaded execution across all validation images, and the corresponding speedup obtained by PyTorch-\algname.
-For a simpler integration, the weight layouts remained unchanged after converting the model to the channel-last format, requiring \algname to convert the weight tensor to $(FH,FW,IC,OC)$ before execution.
+For a simpler integration, the weight layouts remained unchanged after converting the model to the channel-last format, requiring \algname to convert the weight tensor to \texttt{[FH,FW,IC,OC]} before execution.
 Despite this additional transformation overhead, \algname improves execution time across all models, further demonstrating its effectiveness for this architecture.
 
 \begin{table}[t]
@@ -98,11 +97,10 @@ Despite this additional transformation overhead, \algname improves execution tim
 
 \section{Artifact}
 
-Upon acceptance, the authors will package the following components into an archival format and make it publicly available with a DOI:
+The artifact is publicly available with a DOI~\cite{zconvartifact}, and contains the following components:
 \begin{enumerate*}[label=(\arabic*)]
-  \item The figures and tables from the paper, and the raw data used to generate them.
-  \item Source code for the \algname implementations (standalone and PyTorch integration).
-  \item Benchmarking and evaluation scripts to reproduce measurements.
-  \item A Dockerfile that details how to build all components required for the evaluation environment.
+  \item An archive with the source code for the \algname implementations (standalone and PyTorch integration), and with the benchmarking and evaluation scripts to reproduce the measurements.
+  \item An archive with the raw and processed results, and with the figures and tables from the paper generated from them.
+  \item A Docker image with all components required for the evaluation environment already built, accompanied by the Dockerfile that produces it.
 \end{enumerate*}
-Full reproduction instructions will be included in the artifact README. % TODO: add instruction for deeplabv3plus evaluation
+Full reproduction instructions are included in the artifact README.
